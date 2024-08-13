@@ -17,7 +17,30 @@ f32 agiNightMultiplier = 1.0f;
 f32 atkNightMultiplier = 1.0f;
 f32 powNightMultiplier = 1.0f;
 
+s32 itemIdChosen = -1;
 u8 itemIdsToNotRemove[] = {0xE, 0xF, 0x10, 0x11, 0x12, 0x13, 0x1E};
+u8 gInventoryCopy[150] = {0};
+extern u8 gInventory[150];
+
+void MakeInventoryCopy(s32 usedItemID) {
+    s32 i;
+    for (i = 0; i < sizeof(gInventoryCopy); i++) {
+        gInventoryCopy[i] = gInventory[i];
+    }
+}
+
+s32 CheckNonRemovableItem(void) {
+    s32 i;
+    if (itemIdChosen != -1) {
+        for (i = 0; i < sizeof(itemIdsToNotRemove); i++) {
+            if (itemIdsToNotRemove[i] == itemIdChosen) {
+                itemIdChosen = -1;
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
 
 //0x8007BA74 spawns a speech bubble when set to 0x00000010
 //0x8007BA90 exp gain

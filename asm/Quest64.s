@@ -44,7 +44,11 @@ NOP
 NOP
 NOP
 
-.org 0x800220DC
+.org 0x800212E4
+J storeChosenItem
+NOP
+
+.org 0x8002213C
 J itemRemovalHook
 NOP
 

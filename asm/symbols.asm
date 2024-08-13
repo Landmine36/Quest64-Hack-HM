@@ -79,6 +79,7 @@
 .definelabel _memcpy, 0x8003fb20
 
 //data
+.definelabel gInventory, 0x8008cf78
 .definelabel gEventflag1, 0x800869E4
 .definelabel gEventflag2, 0x800869E5
 .definelabel gEventflag3, 0x800869E6
