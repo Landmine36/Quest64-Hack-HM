@@ -44,12 +44,24 @@ NOP
 NOP
 NOP
 
-.org 0x800212E4
-J storeChosenItem
+//.org 0x800212E4
+//J storeChosenItem
+//NOP
+
+//.org 0x800220E4
+//J setItemUsedID
+//NOP
+
+.org 0x800220D4
+J itemRemovalHook
 NOP
 
-.org 0x8002213C
-J itemRemovalHook
+.org 0x800220E4
+J itemRemovalHook2
+NOP
+
+.org 0x80022244
+J itemRemovalHook3
 NOP
 
 .org 0x80026A7C

@@ -479,80 +479,48 @@ NOP
 
 .align 4
 itemRemovalHook:
-    ADDIU sp, sp, -0x90
-    sw $at, 0x0014($sp)
-    sw $v1, 0x001C($sp)
-    sw $a0, 0x0020($sp)
-    sw $a1, 0x0024($sp)
-    sw $a2, 0x0028($sp)
-    sw $a3, 0x002C($sp)
-    sw $t0, 0x0030($sp)
-    sw $t1, 0x0034($sp)
-    sw $t2, 0x0038($sp)
-    sw $t3, 0x003C($sp)
-    sw $t4, 0x0040($sp)
-    sw $t5, 0x0044($sp)
-    sw $t6, 0x0048($sp)
-    sw $t7, 0x004C($sp)
-    sw $s0, 0x0050($sp)
-    sw $s1, 0x0054($sp)
-    sw $s2, 0x0058($sp)
-    sw $s3, 0x005C($sp)
-    sw $s4, 0x0060($sp)
-    sw $s5, 0x0064($sp)
-    sw $s6, 0x0068($sp)
-    sw $s7, 0x006C($sp)
-    sw $t8, 0x0070($sp)
-    sw $t9, 0x0074($sp)
-    sw $ra, 0x0080($sp)
+    LBU a0, 0xCF78 (a0) //restore from hook
+    JAL 0x800212E4 //restore from hook
+    ADDU gp, a0, r0 //copy item removal to gp
+    J 0x800220DC
+    NOP
 
+itemRemovalHook2:
+    JAL MakeInventoryCopy
+    NOP
+    LI t5, itemIdChosen
+    SW gp, 0x0000 (t5) //store chosen item id
+    LUI t5, 0x8009 //restore from hook
+    LW t5, 0xC750 (t5) //restore from hook
+    LUI v0, 0x8009 //restore from hook
+    J 0x800220EC
+    NOP
+
+
+itemRemovalHook3:
+    SW ra, 0x0028 (sp)
+    
+    LI t0, itemIdChosen
+    LW t0, 0x0000 (t0)
+    ADDIU t1, r0, 0xFFFF
+    BEQ t0, t1, skipInventoryRestore
+    NOP
+    //give item back by restoring inventory
     JAL CheckNonRemovableItem
     NOP
 
-    lw $ra, 0x0080($sp)
-    lw $t9, 0x0074($sp)
-    lw $t8, 0x0070($sp)
-    lw $s7, 0x006C($sp)
-    lw $s6, 0x0068($sp)
-    lw $s5, 0x0064($sp)
-    lw $s4, 0x0060($sp)
-    lw $s3, 0x005C($sp)
-    lw $s2, 0x0058($sp)
-    lw $s1, 0x0054($sp)
-    lw $s0, 0x0050($sp)
-    lw $t7, 0x004C($sp)
-    lw $t6, 0x0048($sp)
-    lw $t5, 0x0044($sp)
-    lw $t4, 0x0040($sp)
-    lw $t3, 0x003C($sp)
-    lw $t2, 0x0038($sp)
-    lw $t1, 0x0034($sp)
-    lw $t0, 0x0030($sp)
-    lw $a3, 0x002C($sp)
-    //lw $a2, 0x0028($sp)
-    lw $a1, 0x0024($sp)
-    lw $v1, 0x001C($sp)
-    lw $at, 0x0014($sp)
-    ADDIU sp, sp, 0x90
+    LW ra, 0x0028 (sp)
+    JR RA
+    ADDIU sp, sp, 0x148 //restore from hook
 
-    BEQZ v0, itemNormallyRemoved
-    NOP
-    LUI v0, 0x8008
-    ADDIU v0, v0, 0xB2E4
-    J 0x80022178
-    NOP
+    skipInventoryRestore:
+    JR RA
+    ADDIU sp, sp, 0x148 //restore from hook
 
-    itemNormallyRemoved:
-    LBU t7, 0x0001 (a3)
-    J 0x80022144
-    LBU t9, 0x0002 (a3)
+//80022244
+//JR RA
+//ADDIU sp, sp, 0x148
 
-storeChosenItem:
-    LI v0, itemIdChosen
-    SW a0, 0x0000 (v0)
-    ADDIU sp, sp, -0x20
-    J 0x800212EC
-    SW ra, 0x0014 (sp)
 
 checkIfNight:
     LI at, gTimeOfDay

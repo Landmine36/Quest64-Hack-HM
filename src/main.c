@@ -18,24 +18,35 @@ f32 atkNightMultiplier = 1.0f;
 f32 powNightMultiplier = 1.0f;
 
 s32 itemIdChosen = -1;
+s32 itemIdChosenCopy = -1;
 u8 itemIdsToNotRemove[] = {0xE, 0xF, 0x10, 0x11, 0x12, 0x13, 0x1E};
 u8 gInventoryCopy[150] = {0};
 extern u8 gInventory[150];
 
-void MakeInventoryCopy(s32 usedItemID) {
+void MakeInventoryCopy(void) {
     s32 i;
     for (i = 0; i < sizeof(gInventoryCopy); i++) {
         gInventoryCopy[i] = gInventory[i];
     }
 }
 
-s32 CheckNonRemovableItem(void) {
+void GetInventoryCopy(void) {
     s32 i;
+    for (i = 0; i < sizeof(gInventoryCopy); i++) {
+        gInventory[i] = gInventoryCopy[i];
+    }
+}
+
+s32 CheckNonRemovableItem(void) {
+    s32 i, j;
     if (itemIdChosen != -1) {
         for (i = 0; i < sizeof(itemIdsToNotRemove); i++) {
             if (itemIdsToNotRemove[i] == itemIdChosen) {
-                itemIdChosen = -1;
-                return 1;
+                for (j = 0; j < sizeof(gInventoryCopy); j++) {
+                    GetInventoryCopy();
+                    itemIdChosen = -1;
+                    return 1;
+                }
             }
         }
     }
