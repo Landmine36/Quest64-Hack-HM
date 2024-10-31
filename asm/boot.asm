@@ -497,9 +497,9 @@ itemRemovalHook2:
     NOP
 
 
-itemRemovalHook3:
+	itemRemovalHook3:
     SW ra, 0x0028 (sp)
-    
+
     LI t0, itemIdChosen
     LW t0, 0x0000 (t0)
     ADDIU t1, r0, 0xFFFF
@@ -521,8 +521,8 @@ itemRemovalHook3:
 //JR RA
 //ADDIU sp, sp, 0x148
 
-
-checkIfNight:
+	
+		checkIfNight:
     LI at, gTimeOfDay
     LW at, 0x0000 (at)
     LI v0, 0x005400
@@ -544,7 +544,7 @@ enemyHPSetHook:
     NOP
     BEQZ v0, isNotNightHPSet
     NOP
-    //set new pow by hpNightMultiplier
+     //set new pow by hpNightMultiplier
     LI t5, hpNightMultiplier
     LWC1 f6, 0x0000 (t5)
     MTC1 t4, f8
@@ -556,14 +556,14 @@ enemyHPSetHook:
     SH t4, 0x000A (a0)
     J 0x80009094
     LHU t5, 0x0006 (v1)
-
+	
 enemySetOtherStatsHook:
     LW t7, 0x0064 (s0)
     LHU t9, 0x000C (t7)
     LW t0, 0x0064 (s0)
     LHU t1, 0x000E (t0)
     SWC1 f4, 0x0120 (a0)
-
+	
     JAL checkIfNight
     NOP
     BEQZ v0, isNotNightOtherStatsSet

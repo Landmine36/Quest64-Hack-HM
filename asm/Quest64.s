@@ -52,17 +52,17 @@ NOP
 //J setItemUsedID
 //NOP
 
-.org 0x800220D4
-J itemRemovalHook
-NOP
+//.org 0x800220D4
+//J itemRemovalHook
+//NOP
 
-.org 0x800220E4
-J itemRemovalHook2
-NOP
+//.org 0x800220E4
+//J itemRemovalHook2
+//NOP
 
-.org 0x80022244
-J itemRemovalHook3
-NOP
+//.org 0x80022244
+//J itemRemovalHook3
+//NOP
 
 .org 0x80026A7C
 J func_80026A7C_Hook

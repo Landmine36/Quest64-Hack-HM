@@ -80,10 +80,10 @@ void ChangeBrianFireSpells(void) {
 		SpellTablePointersBrian[FIRE][9].defenseType = 2;	
 	}
 	//Meteor
-	if (gPlayerData.elements.fire >= 70) {
+	if (gPlayerData.elements.fire >= 100) {
 		SpellTablePointersBrian[FIRE][10].attackCount = 2;	
 	}
-	if (gPlayerData.elements.fire >= 100) {
+	if (gPlayerData.elements.fire >= 110) {
 		SpellTablePointersBrian[FIRE][10].attackCount = 3;	
 	}
 	if (gPlayerData.elements.earth >= 51) {
@@ -235,7 +235,7 @@ void ChangeBrianEarthSpells(void) {
 	if (gPlayerData.elements.earth >= 50) {
 		SpellTablePointersBrian[EARTH][12].accuracy = 100;	
 	}
-	if (gPlayerData.elements.earth >= 100) {
+	if (gPlayerData.elements.earth >= 120) {
 		SpellTablePointersBrian[EARTH][12].ifMagicBarrier = 1;
     }
 	//Hell Spikes
@@ -459,7 +459,7 @@ void ChangeBrianWindSpells(void) {
         SpellTablePointersBrian[WIND][8].size = 30.0f;
 		SpellTablePointersBrian[WIND][8].damage_base = 275;
 	}
-	//Replace 14
+	//Soft Steps
 	//Tornado
 	if (gPlayerData.elements.wind >= 36) {
         SpellTablePointersBrian[WIND][10].attackCount = 4;
@@ -498,7 +498,7 @@ void ChangeBrianWindSpells(void) {
 	if (gPlayerData.elements.fire >= 42) {
 		SpellTablePointersBrian[WIND][11].damage_base = 625;
 	}
-	//Replace 16
+	//Spirit Grace
 	//Debilitate
 	//Ultimate Wind
 }

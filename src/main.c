@@ -11,11 +11,11 @@
 
 extern Gfx* gMasterGfxPos;
 
-f32 hpNightMultiplier = 1.0f;
-f32 defNightMultiplier = 1.0f;
-f32 agiNightMultiplier = 1.0f;
-f32 atkNightMultiplier = 1.0f;
-f32 powNightMultiplier = 1.0f;
+f32 hpNightMultiplier = 1.5f;
+f32 defNightMultiplier = 1.5f;
+f32 agiNightMultiplier = 1.5f;
+f32 atkNightMultiplier = 1.5f;
+f32 powNightMultiplier = 1.5f;
 
 s32 itemIdChosen = -1;
 s32 itemIdChosenCopy = -1;
@@ -32,7 +32,7 @@ void MakeInventoryCopy(void) {
 
 void GetInventoryCopy(void) {
     s32 i;
-    for (i = 0; i < sizeof(gInventoryCopy); i++) {
+	    for (i = 0; i < sizeof(gInventoryCopy); i++) {
         gInventory[i] = gInventoryCopy[i];
     }
 }
@@ -63,7 +63,7 @@ s32 earthElementLevelUpTextXPos[] = {117, 112, 119, 0};
 s32 waterElementLevelUpTextXPos[] = {135, 131, 135, 0};
 s32 windElementLevelUpTextXPos[] = {153, 150, 153, 0};
 
-s32 elementCapsTable[] = {10, 20, 30, 40, 40, 50, 99, 255, 255};
+s32 elementCapsTable[] = {10, 20, 30, 40, 40, 50, 99, 150, 150};
 s32 gTotalBossesBeatenCount = 0;
 
 void ChangeBrianFireSpells(void);
@@ -383,62 +383,62 @@ void func_800074A0_Hook(PlayerData* arg0, unkStruct3* arg1) {
             }
         }
     }
-    if (arg1->unk64->unk6 < 500) {
+    if (arg1->unk64->unk6 < 999) {
         if (arg0->playerStats->unk28 >= D_80053ECC[arg0->playerStats->unk30]) {
             arg0->playerStats->unk28 = arg0->playerStats->unk28 - D_80053ECC[arg0->playerStats->unk30];
             var_a0 = 1;
-            if ((arg1->unk64->unk6 + 1) > 500) {
-                var_a0 = 500 - arg1->unk64->unk6;
+            if ((arg1->unk64->unk6 + 1) > 999) {
+                var_a0 = 999 - arg1->unk64->unk6;
             }
             arg1->unk64->unk6 += var_a0;
             arg1->unk64->unk4 += var_a0;
-            if (arg0->playerStats->unk30 < 54) {
+            if (arg0->playerStats->unk30 < 1) {
                 arg0->playerStats->unk30++;
             }
         }
     } else {
         arg0->playerStats->unk28 = 0;
     }
-    if (arg1->unk64->unkA < 500) {
+    if (arg1->unk64->unkA < 999) {
         if (arg0->playerStats->unk2A >= D_80053ECC[arg0->playerStats->unk31] * 4) {
             arg0->playerStats->unk2A -= D_80053ECC[arg0->playerStats->unk31] * 4;
             var_a0 = 1;
-            if ((arg1->unk64->unkA + 1) > 500) {
-                var_a0 = (500 - arg1->unk64->unkA);
+            if ((arg1->unk64->unkA + 1) > 999) {
+                var_a0 = (999 - arg1->unk64->unkA);
             }
             arg1->unk64->unkA += var_a0;
             arg1->unk64->unk8 += var_a0;
-            if (arg0->playerStats->unk31 < 54) {
+            if (arg0->playerStats->unk31 < 1) {
                 arg0->playerStats->unk31++;
             }
         }
     } else {
         arg0->playerStats->unk2A = 0;
     }
-    if (arg1->unk64->unkC < 255) {
+    if (arg1->unk64->unkC < 999) {
         if (arg0->playerStats->unk2C >= D_80053ECC[arg0->playerStats->unk32]) {
             arg0->playerStats->unk2C -= D_80053ECC[arg0->playerStats->unk32];
             var_a0 = 1;
-            if ((arg1->unk64->unkC + 1) > 255) {
-                var_a0 = (255 - arg1->unk64->unkC);
+            if ((arg1->unk64->unkC + 1) > 999) {
+                var_a0 = (999 - arg1->unk64->unkC);
             }
             arg1->unk64->unkC += var_a0;
-            if (arg0->playerStats->unk32 < 54) {
+            if (arg0->playerStats->unk32 < 1) {
                 arg0->playerStats->unk32++;
             }
         }
     } else {
         arg0->playerStats->unk2C = 0;
     }
-    if (arg1->unk64->unkE < 255) {
+    if (arg1->unk64->unkE < 999) {
         if (arg0->playerStats->unk2E >= D_80053ECC[arg0->playerStats->unk33] * 2) {
             arg0->playerStats->unk2E -= D_80053ECC[arg0->playerStats->unk33] * 2;
             var_a0 = 1;
-            if ((arg1->unk64->unkE + 1) > 255) {
-                var_a0 = (255 - arg1->unk64->unkE);
+            if ((arg1->unk64->unkE + 1) > 999) {
+                var_a0 = (999 - arg1->unk64->unkE);
             }
             arg1->unk64->unkE += var_a0;
-            if (arg0->playerStats->unk33 < 54) {
+            if (arg0->playerStats->unk33 < 1) {
                 arg0->playerStats->unk33++;
             }
         }
@@ -665,6 +665,24 @@ void mainCFunction(void) { //ran every frame
 		}
 	}
 	
+//	if (gCurrentMap == 3) {
+//		if (gNextSubmap == 0) {
+//			if (gEventflag1 & 4) {
+//				if ((gEventflag1 & 8) == 0x00) {
+//					if (sCurrentenemy == 0x0E) {
+//						if ((gBattleState3 & 8) == 0x00) {
+//							gBattleState3 |= 8;
+//							sEnemyHP = sEnemyHP * 1.3;
+//							sEnemyATK = sEnemyATK * 1.3;
+//							sEnemyDEF = sEnemyDEF * 1.3;
+//							sEnemyAGI = sEnemyAGI * 1.3;
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
+	
 	if (gCurrentMap == 3) {
 		if (gNextSubmap == 0) {
 			if (gEventflag1 & 4) {
@@ -698,6 +716,7 @@ void mainCFunction(void) { //ran every frame
 							sBrianDEFEXP = sBrianDEFEXP + 16;
 							sBrianAGIEXP = sBrianAGIEXP + 16;
 							sBrianELEEXP = sBrianELEEXP + 450;
+							sBrianStone = sBrianStone + 300;
 							sBrianItemPickup = 0x1A;
 						}
 					}
@@ -756,6 +775,7 @@ void mainCFunction(void) { //ran every frame
 							sBrianDEFEXP = sBrianDEFEXP + 50;
 							sBrianAGIEXP = sBrianAGIEXP + 50;
 							sBrianELEEXP = sBrianELEEXP + 45000;
+							sBrianStone = sBrianStone + 30000;
 							sBrianItemPickup = 0x1A;
 						}
 					}
@@ -772,6 +792,175 @@ void mainCFunction(void) { //ran every frame
 			}
 		}
 		
+		
+	//Remains of Donovan's Family in Greenoch
+	//Zonne in Greenoch
+		if (gCurrentMap == 23) {
+			if (gNextSubmap == 2) {
+				if ((gEventflag2 & 1) == 0x0) {
+					if (eTextlookup == 0xa0c0810B) {
+						gEventflag2 |= 1;
+					}
+				}
+			}
+		}
+	//Donovan in Larapool
+		if (gCurrentMap == 17) {
+			if (gNextSubmap == 0) {
+				if (gEventflag2 & 1) {
+					if ((gEventflag2 & 2) == 0x0) {
+						eDonovantext = 0xbc00;
+					}
+				}
+			}
+		}
+	//Donovan in Larapool
+		if (gCurrentMap == 17) {
+			if (gNextSubmap == 0) {
+				if (gEventflag2 & 1) {
+					if ((gEventflag2 & 2) == 0x0) {
+						if (eTextlookup == 0xa0c08118) {
+							gEventflag2 |= 2;
+						}
+					}
+				}
+			}
+		}
+	//Zonne in Greenoch
+		if (gCurrentMap == 23) {
+			if (gNextSubmap == 2) {
+				if (gEventflag2 & 2) {
+					if ((gEventflag2 & 4) == 0x0) {
+						eZonnetext = 0xbd00;
+					}
+				}
+			}
+		}
+	//Zonne in Greenoch
+		if (gCurrentMap == 23) {
+			if (gNextSubmap == 2) {
+				if (gEventflag2 & 2) {
+					if ((gEventflag2 & 4) == 0x0) {
+						if (eTextlookup == 0xa0c08107) {
+							gEventflag2 |= 4;
+							sBrianHPEXP = sBrianHPEXP + 60;
+							sBrianMPEXP = sBrianMPEXP + 100;
+							sBrianDEFEXP = sBrianDEFEXP + 20;
+							sBrianAGIEXP = sBrianAGIEXP + 50;
+							sBrianELEEXP = sBrianELEEXP + 30000;
+							sBrianStone = sBrianStone + 15000;
+							sBrianItemPickup = 0x1A;
+							
+						}
+					}
+				}
+			}
+		}
+	
+	//Zonne in Greenoch
+		if (gCurrentMap == 23) {
+			if (gNextSubmap == 2) {
+				if (gEventflag2 & 2) {
+					if (gEventflag2 & 4) {
+						eZonnetext = 0xbe00;
+					}
+				}
+			}
+		}
+		
+	//Donovan in Larapool
+		if (gCurrentMap == 17) {
+			if (gNextSubmap == 0) {
+				if (gEventflag2 & 2) {
+					if (gEventflag2 & 4) {
+						eDonovantext = 0xbf00;
+					}
+				}
+			}
+		}
+		
+	//End of Donovans side quest
+	
+	//Clay the Potter's Side Quest
+		if (gCurrentMap == 0x10) {
+			if (gNextSubmap == 6) {
+				if (gBossFlags & 16) {
+						eClaytext = 0xC000;
+				}
+			}
+		}
+		
+		if (gCurrentMap == 0x10) {
+			if (gNextSubmap == 6) {	
+				if (eTextlookup == 0xa0c08113) {
+					gEventflag2 |= 8;
+				}
+			}
+		}
+		
+		if (gCurrentMap == 0x12) {
+			if (gNextSubmap == 5) {
+				if (gEventflag2 & 8) {
+					eBaggutext = 0xC200;
+				}
+			}
+		}
+		
+		if (gCurrentMap == 0x12) {
+			if (gNextSubmap == 5) {
+				if (gEventflag2 & 8) {
+					eErrortext = 0xC100;
+				}
+			}
+		}
+					
+		if (gCurrentMap == 0x12) {
+			if (gNextSubmap == 5) {	
+				if (eTextlookup == 0xa0c08113) {
+					gEventflag2 |= 16;
+				}
+			}
+		}
+		
+		if (gCurrentMap == 0x10) {
+			if (gNextSubmap == 6) {
+				if (gEventflag2 & 16) {
+					eClaytext = 0xC300;
+				}
+			}
+		}
+		
+		if (gCurrentMap == 0x10) {
+			if (gNextSubmap == 6) {	
+				if (gEventflag2 & 16) {
+					if (eTextlookup == 0xa0c08101) {
+						if (!(gEventflag2 & 32)) {
+						gEventflag2 |= 32;
+							sBrianHPEXP = sBrianHPEXP + 40;
+							sBrianMPEXP = sBrianMPEXP + 40;
+							sBrianDEFEXP = sBrianDEFEXP + 40;
+							sBrianAGIEXP = sBrianAGIEXP + 40;
+							sBrianELEEXP = sBrianELEEXP + 15000;
+							sBrianStone = sBrianStone + 1000;
+							sBrianItemPickup = 0x1A;
+						}
+					}
+				}
+			}
+		}
+		
+		if (gCurrentMap == 0x10) {
+			if (gNextSubmap == 6) {	
+				if (gEventflag2 & 32) {
+					eClaytext = 0xC400;
+				}
+			}
+		}
+		
+		
+		
+	//End of Clay's Sidequest
+	
 	//Secret of the Philosopher's Stone
 		if (gCurrentMap == 20) {
 			if (gNextSubmap == 7) {
@@ -805,7 +994,7 @@ void mainCFunction(void) { //ran every frame
 		if (gCurrentMap == 26) {
 			if (gNextSubmap == 3) {
 				if (gEventflag14 & 1){
-					eEponatext = 0xACF6;
+					eEponatext = 0xB860;
 				}
 			}
 		}
@@ -824,8 +1013,8 @@ void mainCFunction(void) { //ran every frame
 		
 		if (gCurrentMap == 26) {
 			if (gNextSubmap == 3) {
-				if (gEventflag13 & 128){
-					eEponatext = 0xE330;
+				if (gEventflag13 & 128) {
+					eEponatext = 0xBB60;
 				}
 			}
 		}
@@ -842,17 +1031,271 @@ void mainCFunction(void) { //ran every frame
 			}
 		}
 		
+		if (gEventflag13 & 128) {
+			if ((gCurrentMap == 2)|(gCurrentMap == 3)|(gCurrentMap == 5)|(gCurrentMap == 7)|(gCurrentMap == 9)|(gCurrentMap == 10)|(gCurrentMap == 12)|(gCurrentMap == 19)|(gCurrentMap == 23)|(gCurrentMap == 26 && (!(gNextSubmap == 3)))|(gCurrentMap == 27)|(gCurrentMap == 28)|(gCurrentMap == 29)|(gCurrentMap == 30)|(gCurrentMap == 31)|(gCurrentMap == 32)|(gCurrentMap == 32 && (!(gNextSubmap == 1)))|(gCurrentMap == 33)|(gCurrentMap == 34)|(gCurrentMap == 35)) {
+				gEventBossRead = 0x69F3;
+				gEventBossWrite = 0x69F3;
+//				gEventBossRRead = 0x69F3;
+//				gEventBossRWrite = 0x69F3;
+			}
+//			else if (!(gCurrentMap == 26|gCurrentMap == 31|gCurrentMap == 35|gCurrentMap == 12)) {
+			else if (!(gCurrentMap == 2)|(gCurrentMap == 3)|(gCurrentMap == 5)|(gCurrentMap == 7)|(gCurrentMap == 9)|(gCurrentMap == 10)|(gCurrentMap == 12)|(gCurrentMap == 19)|(gCurrentMap == 23)|(gCurrentMap == 26 && (!(gNextSubmap == 3)))|(gCurrentMap == 27)|(gCurrentMap == 28)|(gCurrentMap == 29)|(gCurrentMap == 30)|(gCurrentMap == 31)|(gCurrentMap == 32)|(gCurrentMap == 32 && (!(gNextSubmap == 1)))|(gCurrentMap == 33)|(gCurrentMap == 34)|(gCurrentMap == 35)) {
+				gEventBossRead = 0xD19C;
+				gEventBossWrite = 0xD19C;
+//				gEventBossRRead = 0xD19C;
+//				gEventBossRWrite = 0xD19C;
+			}
+		}
 		
+			
+		
+		//Solvaring 2
+		if (gEventflag13 & 128){
+			sSolvaMHP = 12000;
+			sSolvaCHP = 12000;
+			sSolvaDEF = 500;
+			sSolvaAGI = 350;
+			sSolvaATK = 120;
+			sSolvaEXP = 500000;
+			sSolvaSTN = 250000;
+			sSolvaDRP = 0x1A000000;
+//			sSolvaringLocation 	=		
+		}
+		//Zelse 2
+//		if (gEventflag13 & 0x80){
+//			sZelseMHP = 15000;
+//			sZelseCHP = 15000;
+//			sZelseDEF = 625;
+//			sZelseAGI = 400;
+//			sZelseATK = 150;
+//			sZelseLocation = 0x00200000;
+//		}
+		//Nepty 2
+//		if (gCurrentMap == 12) {
+//			if (gNextSubmap == 0) {
+//				if (gEventflag13 & 0x80){
+//					bossFlags -= bossFlags & 4;
+//				}
+//			}
+//		}
+		//Nepty Boss Spawn
+//		if (gCurrentMap == 35) {
+//			if (gNextSubmap == 0) {
+//				if ((bossFlags & 3) == 0x0) {
+//					bossonmap = 0x01;
+//				}
+//			}
+//		}
+		//Shilf 2
+//		if (gEventflag13 & 0x80){
+//		}
+		//Fargo 2
+//		if (gEventflag13 & 0x80){
+//		}
+		//Guilty 2
+//		if (gEventflag13 & 0x80){
+//		}
+		//Beigis 2
+//		if (gEventflag13 & 0x80){
+//		}
+	
 	//Mammon Empowered after Guilty
-	if (bossFlags & 0x20) {
-		sMammonMHP = 32000;
-		sMammonCHP = 32000;
-		sMammonDEF = 550;
-		sMammonAGI = 666;
-		sMammonATK = 150;
-	}	
+//	if (gEventflag13 & 0x80){
+//		if (bossFlags & 0x20) {
+//			if (gCurrentMap == 34) {
+//				if (gNextSubmap == 10) {
+//					sMammonMHP = 32000;
+//					sMammonCHP = 32000;
+//					sMammonDEF = 550;
+//					sMammonAGI = 666;
+//					sMammonATK = 150;
+//				}
+//			}
+//		}
+//	}	
 	
 
+	//Spell Cost Reduce
+	
+	if (gCurrentMap == 0x20) {
+			if (gNextSubmap == 0x01) {
+				if (bossFlags >= 0x5F) {
+					if (eTextlookup == 0x80c0e00e) {
+						if ((gEventflag15 & 16) == 0){
+							sBrianHPEXP = sBrianHPEXP + 16;
+							sBrianMPEXP = sBrianMPEXP + 16;
+							sBrianDEFEXP = sBrianDEFEXP + 16;
+							sBrianAGIEXP = sBrianAGIEXP + 16;
+							sBrianELEEXP = sBrianELEEXP + 15000;
+							gEventflag15 |= 16;
+						}
+					}
+				if ((gEventflag15 & 16) == 0){	
+				eKellytext = 0xD800;
+				}
+				else
+					eKellytext = 0x9600;
+				}
+			}
+		}
+	
+	 	if (gEventflag15 & 16){
+			if (sLv1MPCost == 0x0001){
+				sLv1MPCost = 0x0000;
+				sLv2MPCost = 0x0001;
+				sLv3MPCost = 0x0002;
+			}
+		}
+		if (!(gEventflag15 & 16)){
+ 			if (sLv1MPCost == 0x0000){
+				sLv1MPCost = 0x0001;
+				sLv2MPCost = 0x0002;
+				sLv3MPCost = 0x0003;
+		    }
+		}
+// END
+	//EXP Multipliers
+	
+	
+	
+	if (gCurrentMap == 0x0E) {
+			if (gNextSubmap == 0x0E) {
+				if (bossFlags >= 0x07) {
+					if (eTextlookup == 0x80c0e07f) {
+						if ((gEventflag15 & 8) == 0){
+							sBrianHPEXP = sBrianHPEXP + 32;
+							sBrianMPEXP = sBrianMPEXP + 15;
+							sBrianDEFEXP = sBrianDEFEXP + 16;
+							sBrianAGIEXP = sBrianAGIEXP + 32;
+							sBrianELEEXP = sBrianELEEXP + 5000;
+							gEventflag15 |= 8;
+						}
+					}
+				if ((gEventflag15 & 8) == 0){	
+				eFloratext = 0xD000;
+				}
+				else
+					eFloratext = 0x4700;
+				}
+			}
+		}
+	
+	
+	if (gCurrentMap == 0x19) {
+			if (gNextSubmap == 0x00) {
+				if (bossFlags >= 0x5F) {
+					if (eTextlookup == 0x80c0e07f) {
+						if ((gEventflag15 & 4) == 0){
+							sBrianHPEXP = sBrianHPEXP + 50;
+							sBrianMPEXP = sBrianMPEXP + 30;
+							sBrianDEFEXP = sBrianDEFEXP + 64;
+							sBrianAGIEXP = sBrianAGIEXP + 32;
+							sBrianELEEXP = sBrianELEEXP + 40000;
+							gEventflag15 |= 4;
+						}
+					}
+				if ((gEventflag15 & 4) == 0){	
+				eKiliactext = 0xD200;
+				}
+				else
+					eKiliactext = 0xA078;
+				}
+			}
+		}
+		
+	if (gCurrentMap == 0x15) {
+		if (gNextSubmap == 0x0B) {
+			if (bossFlags >= 0x1F) {
+				if (eTextlookup == 0x80c0e00e) {
+					if ((gEventflag15 & 1) == 0){
+						sBrianHPEXP = sBrianHPEXP + 50;
+						sBrianMPEXP = sBrianMPEXP + 10;
+						sBrianDEFEXP = sBrianDEFEXP + 10;
+						sBrianAGIEXP = sBrianAGIEXP + 10;
+						sBrianELEEXP = sBrianELEEXP + 10000;
+						gEventflag15 |= 1;
+					}
+				}
+			if ((gEventflag15 & 1) == 0){	
+			eWilliamtext = 0xD600;
+			}
+			else
+				eWilliamtext = 0x7E40;
+			}
+		}
+	}
+	
+	if (gCurrentMap == 0x0d) {
+		if (gNextSubmap == 0x11) {
+			if (bossFlags >= 0x0F) {
+				if (eTextlookup == 0x80c0e07f) {
+					if ((gEventflag15 & 2) == 0){
+						sBrianHPEXP = sBrianHPEXP + 25;
+						sBrianMPEXP = sBrianMPEXP + 10;
+						sBrianDEFEXP = sBrianDEFEXP + 10;
+						sBrianAGIEXP = sBrianAGIEXP + 10;
+						sBrianELEEXP = sBrianELEEXP + 2000;
+						gEventflag15 |= 2;
+					}
+				}
+			if ((gEventflag15 & 2) == 0){	
+			eAbbotttext = 0xD400;
+			}
+			else
+				eAbbotttext = 0x2620;
+			}
+		}
+	}
+	
+	
+	
+		if (gEventflag15 & 1){
+			if (sHPEXPM == 1){
+				sHPEXPM = 2;
+				sSHPEXPM = 2;
+			}
+		}
+		if (!(gEventflag15 & 1)){
+			if (sHPEXPM == 2){
+				sHPEXPM = 1;
+				sSHPEXPM = 1;
+			}
+		}
+		if (gEventflag15 & 2){
+			if (sMPEXPM == 1){
+				sMPEXPM = 2;
+				sHMPEXPM = 2;
+			}
+		}
+		if (!(gEventflag15 & 2)){
+			if (sMPEXPM == 2){
+				sMPEXPM = 1;
+				sHMPEXPM = 1;
+			}
+		}
+		if (gEventflag15 & 4){
+			if (sDEFEXPM == 1){
+				sDEFEXPM = 2;
+			}
+		}
+		if (!(gEventflag15 & 4)){
+			if (sDEFEXPM == 2){
+				sDEFEXPM = 1;
+			}
+		}
+		if (gEventflag15 & 8){
+			if (sAGIEXPM == 1){
+				sAGIEXPM = 2;
+				sBAGIEXPM = 2;
+			}
+		}
+		if (!(gEventflag15 & 8)){
+			if (sAGIEXPM == 2){
+				sAGIEXPM = 1;
+				sBAGIEXPM = 1;
+			}
+		}
+//// End
 
 	//MaxHP/MP Bugfix
 	if (sBrianMAXHP >= 1000) {
@@ -868,9 +1311,1547 @@ void mainCFunction(void) { //ran every frame
 		sBrianMP = 999;
 	}
 
+	//Elemental Level Bugfix
+	if (sMaxEleLvl == 0xFF000000){
+		if (!(sCombinedEle == 0x96969696)){
+			sMaxEleLvl = 0xFE000000;
+		}
+	}
+	if (sMaxEleLvl == 0xFE000000){
+		if (sCombinedEle == 0x96969696){
+			sMaxEleLvl = 0xFF000000;
+		}
+	}
+	//End
+		
+	
+	
+//Drain Attack Fix
+	if (gSpellCast == 0x00000006){
+			if (gSpellTimer == 0x00020000){
+				if (sATKStat <= 0x1D){
+				sATKStat = sATKStat * 1.5;
+				gSpellTimer = 0x00010000;
+				}
+			}
+	}
+//Drain Attack Fix End
+
+//Damage Number Color Change
+	if (gDamageNumbers == 0x00000001){
+     gDamageColor = 0xFFFFFF00;
+	}
+	if (gDamageNumbers == 0x00000002){
+     gDamageColor = 0xFFFF0000;
+	}
+	if (gDamageNumbers == 0x00000003){
+     gDamageColor = 0xFF404000;
+	}
+	if (gDamageNumbers == 0x00000004){
+     gDamageColor = 0x80008000;
+	}
+	if (gDamageNumbers == 0x00000005){
+		gDamageColor = 0x00000000;
+	}
+//
+
+//Restriction Lines
+		if (sEnemy1R == 0x800875a8){
+		if (sAnim2R1 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+				sAnimR1 = 0x04;}
+			else if (sEnemy1RTime <= 0x03){
+				sAnimR1 = sEnemy1RTime;
+			}
+		}
+	}
+		if (sEnemy1R == 0x80087600){
+					if (sAnim2R2 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR2 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR2 = sEnemy1RTime;
+		}
+	}
+		}
+		if (sEnemy1R == 0x80087658){
+					if (sAnim2R3 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR3 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR3 = sEnemy1RTime;
+		}
+	}
+		}
+		if (sEnemy1R == 0x800876b0){
+					if (sAnim2R4 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR4 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR4 = sEnemy1RTime;
+		}
+	}
+		}
+		if (sEnemy1R == 0x80087708){
+					if (sAnim2R5 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR5 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR5 = sEnemy1RTime;
+		}
+	}
+		}
+		if (sEnemy1R == 0x80087760){
+					if (sAnim2R6 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR6 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR6 = sEnemy1RTime;
+		}
+	}
+		}
+		if (sEnemy1R == 0x800877b8){
+					if (sAnim2R7 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR7 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR7 = sEnemy1RTime;
+		}
+	}
+		}
+		if (sEnemy1R == 0x80087910){
+					if (sAnim2R8 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR8 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR8 = sEnemy1RTime;
+		}
+	}
+		}
+		if (sEnemy1R == 0x80087868){
+					if (sAnim2R9 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR9 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR9 = sEnemy1RTime;
+		}
+	}
+		}
+		if (sEnemy1R == 0x800878c0){
+					if (sAnim2R10 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR10 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR10 = sEnemy1RTime;
+		}
+	}
+		}
+		if (sEnemy1R == 0x80087918){
+					if (sAnim2R11 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR11 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR11 = sEnemy1RTime;
+		}
+	}
+		}
+		if (sEnemy1R == 0x80087970){
+					if (sAnim2R12 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR12 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR12 = sEnemy1RTime;
+		}
+	}	
+		}
+		if (sEnemy1R == 0x800879c8){
+					if (sAnim2R13 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR13 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR13 = sEnemy1RTime;
+		}
+	}	
+		}
+		if (sEnemy1R == 0x80087a20){
+					if (sAnim2R14 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR14 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR14 = sEnemy1RTime;
+		}
+	}	
+		}
+		if (sEnemy1R == 0x80087a78){
+					if (sAnim2R15 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR15 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR15 = sEnemy1RTime;
+		}
+	}	
+		}
+		if (sEnemy1R == 0x80087ad0){
+					if (sAnim2R16 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR16 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR16 = sEnemy1RTime;
+		}
+	}	
+		}
+		if (sEnemy1R == 0x80087b28){
+					if (sAnim2R17 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR17 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR17 = sEnemy1RTime;
+		}
+	}	
+		}
+		if (sEnemy1R == 0x80087b80){
+					if (sAnim2R18 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR18 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR18 = sEnemy1RTime;
+		}
+	}	
+		}
+		if (sEnemy1R == 0x80087bd8){
+					if (sAnim2R19 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR19 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR19 = sEnemy1RTime;
+		}
+	}	 
+		}
+		if (sEnemy1R == 0x80087c30){
+					if (sAnim2R20 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR20 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR20 = sEnemy1RTime;
+		}
+	}	
+		}
+		if (sEnemy1R == 0x80087c88){
+					if (sAnim2R21 == 0x800eaef0){
+			if (sEnemy1RTime >= 0x04){
+			sAnimR21 = 0x04;}
+		else if (sEnemy1RTime <= 0x03){
+			sAnimR21 = sEnemy1RTime;
+		}
+	}
+		}
+		if (sEnemy2R == 0x800875a8){
+		if (sAnim2R1 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+				sAnimR1 = 0x04;}
+			else if (sEnemy2RTime <= 0x03){
+				sAnimR1 = sEnemy2RTime;
+			}
+		}
+	}
+		if (sEnemy2R == 0x80087600){
+					if (sAnim2R2 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR2 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR2 = sEnemy2RTime;
+		}
+	}
+		}
+		if (sEnemy2R == 0x80087658){
+					if (sAnim2R3 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR3 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR3 = sEnemy2RTime;
+		}
+	}
+		}
+		if (sEnemy2R == 0x800876b0){
+					if (sAnim2R4 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR4 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR4 = sEnemy2RTime;
+		}
+	}
+		}
+		if (sEnemy2R == 0x80087708){
+					if (sAnim2R5 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR5 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR5 = sEnemy2RTime;
+		}
+	}
+		}
+		if (sEnemy2R == 0x80087760){
+					if (sAnim2R6 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR6 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR6 = sEnemy2RTime;
+		}
+	}
+		}
+		if (sEnemy2R == 0x800877b8){
+					if (sAnim2R7 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR7 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR7 = sEnemy2RTime;
+		}
+	}
+		}
+		if (sEnemy2R == 0x80087910){
+					if (sAnim2R8 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR8 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR8 = sEnemy2RTime;
+		}
+	}
+		}
+		if (sEnemy2R == 0x80087868){
+					if (sAnim2R9 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR9 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR9 = sEnemy2RTime;
+		}
+	}
+		}
+		if (sEnemy2R == 0x800878c0){
+					if (sAnim2R10 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR10 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR10 = sEnemy2RTime;
+		}
+	}
+		}
+		if (sEnemy2R == 0x80087918){
+					if (sAnim2R11 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR11 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR11 = sEnemy2RTime;
+		}
+	}
+		}
+		if (sEnemy2R == 0x80087970){
+					if (sAnim2R12 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR12 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR12 = sEnemy2RTime;
+		}
+	}	
+		}
+		if (sEnemy2R == 0x800879c8){
+					if (sAnim2R13 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR13 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR13 = sEnemy2RTime;
+		}
+	}	
+		}
+		if (sEnemy2R == 0x80087a20){
+					if (sAnim2R14 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR14 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR14 = sEnemy2RTime;
+		}
+	}	
+		}
+		if (sEnemy2R == 0x80087a78){
+					if (sAnim2R15 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR15 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR15 = sEnemy2RTime;
+		}
+	}	
+		}
+		if (sEnemy2R == 0x80087ad0){
+					if (sAnim2R16 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR16 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR16 = sEnemy2RTime;
+		}
+	}	
+		}
+		if (sEnemy2R == 0x80087b28){
+					if (sAnim2R17 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR17 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR17 = sEnemy2RTime;
+		}
+	}	
+		}
+		if (sEnemy2R == 0x80087b80){
+					if (sAnim2R18 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR18 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR18 = sEnemy2RTime;
+		}
+	}	
+		}
+		if (sEnemy2R == 0x80087bd8){
+					if (sAnim2R19 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR19 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR19 = sEnemy2RTime;
+		}
+	}	 
+		}
+		if (sEnemy2R == 0x80087c30){
+					if (sAnim2R20 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR20 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR20 = sEnemy2RTime;
+		}
+	}	
+		}
+		if (sEnemy2R == 0x80087c88){
+					if (sAnim2R21 == 0x800eaef0){
+			if (sEnemy2RTime >= 0x04){
+			sAnimR21 = 0x04;}
+		else if (sEnemy2RTime <= 0x03){
+			sAnimR21 = sEnemy2RTime;
+		}
+	}
+		}
+		if (sEnemy3R == 0x800875a8){
+		if (sAnim2R1 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+				sAnimR1 = 0x04;}
+			else if (sEnemy3RTime <= 0x03){
+				sAnimR1 = sEnemy3RTime;
+			}
+		}
+	}
+		if (sEnemy3R == 0x80087600){
+					if (sAnim2R2 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR2 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR2 = sEnemy3RTime;
+		}
+	}
+		}
+		if (sEnemy3R == 0x80087658){
+					if (sAnim2R3 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR3 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR3 = sEnemy3RTime;
+		}
+	}
+		}
+		if (sEnemy3R == 0x800876b0){
+					if (sAnim2R4 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR4 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR4 = sEnemy3RTime;
+		}
+	}
+		}
+		if (sEnemy3R == 0x80087708){
+					if (sAnim2R5 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR5 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR5 = sEnemy3RTime;
+		}
+	}
+		}
+		if (sEnemy3R == 0x80087760){
+					if (sAnim2R6 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR6 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR6 = sEnemy3RTime;
+		}
+	}
+		}
+		if (sEnemy3R == 0x800877b8){
+					if (sAnim2R7 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR7 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR7 = sEnemy3RTime;
+		}
+	}
+		}
+		if (sEnemy3R == 0x80087910){
+					if (sAnim2R8 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR8 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR8 = sEnemy3RTime;
+		}
+	}
+		}
+		if (sEnemy3R == 0x80087868){
+					if (sAnim2R9 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR9 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR9 = sEnemy3RTime;
+		}
+	}
+		}
+		if (sEnemy3R == 0x800878c0){
+					if (sAnim2R10 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR10 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR10 = sEnemy3RTime;
+		}
+	}
+		}
+		if (sEnemy3R == 0x80087918){
+					if (sAnim2R11 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR11 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR11 = sEnemy3RTime;
+		}
+	}
+		}
+		if (sEnemy3R == 0x80087970){
+					if (sAnim2R12 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR12 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR12 = sEnemy3RTime;
+		}
+	}	
+		}
+		if (sEnemy3R == 0x800879c8){
+					if (sAnim2R13 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR13 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR13 = sEnemy3RTime;
+		}
+	}	
+		}
+		if (sEnemy3R == 0x80087a20){
+					if (sAnim2R14 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR14 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR14 = sEnemy3RTime;
+		}
+	}	
+		}
+		if (sEnemy3R == 0x80087a78){
+					if (sAnim2R15 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR15 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR15 = sEnemy3RTime;
+		}
+	}	
+		}
+		if (sEnemy3R == 0x80087ad0){
+					if (sAnim2R16 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR16 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR16 = sEnemy3RTime;
+		}
+	}	
+		}
+		if (sEnemy3R == 0x80087b28){
+					if (sAnim2R17 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR17 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR17 = sEnemy3RTime;
+		}
+	}	
+		}
+		if (sEnemy3R == 0x80087b80){
+					if (sAnim2R18 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR18 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR18 = sEnemy3RTime;
+		}
+	}	
+		}
+		if (sEnemy3R == 0x80087bd8){
+					if (sAnim2R19 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR19 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR19 = sEnemy3RTime;
+		}
+	}	 
+		}
+		if (sEnemy3R == 0x80087c30){
+					if (sAnim2R20 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR20 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR20 = sEnemy3RTime;
+		}
+	}	
+		}
+		if (sEnemy3R == 0x80087c88){
+					if (sAnim2R21 == 0x800eaef0){
+			if (sEnemy3RTime >= 0x04){
+			sAnimR21 = 0x04;}
+		else if (sEnemy3RTime <= 0x03){
+			sAnimR21 = sEnemy3RTime;
+		}
+	}
+		}
+		if (sEnemy4R == 0x800875a8){
+		if (sAnim2R1 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+				sAnimR1 = 0x04;}
+			else if (sEnemy4RTime <= 0x03){
+				sAnimR1 = sEnemy4RTime;
+			}
+		}
+	}
+		if (sEnemy4R == 0x80087600){
+					if (sAnim2R2 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR2 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR2 = sEnemy4RTime;
+		}
+	}
+		}
+		if (sEnemy4R == 0x80087658){
+					if (sAnim2R3 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR3 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR3 = sEnemy4RTime;
+		}
+	}
+		}
+		if (sEnemy4R == 0x800876b0){
+					if (sAnim2R4 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR4 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR4 = sEnemy4RTime;
+		}
+	}
+		}
+		if (sEnemy4R == 0x80087708){
+					if (sAnim2R5 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR5 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR5 = sEnemy4RTime;
+		}
+	}
+		}
+		if (sEnemy4R == 0x80087760){
+					if (sAnim2R6 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR6 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR6 = sEnemy4RTime;
+		}
+	}
+		}
+		if (sEnemy4R == 0x800877b8){
+					if (sAnim2R7 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR7 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR7 = sEnemy4RTime;
+		}
+	}
+		}
+		if (sEnemy4R == 0x80087910){
+					if (sAnim2R8 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR8 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR8 = sEnemy4RTime;
+		}
+	}
+		}
+		if (sEnemy4R == 0x80087868){
+					if (sAnim2R9 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR9 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR9 = sEnemy4RTime;
+		}
+	}
+		}
+		if (sEnemy4R == 0x800878c0){
+					if (sAnim2R10 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR10 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR10 = sEnemy4RTime;
+		}
+	}
+		}
+		if (sEnemy4R == 0x80087918){
+					if (sAnim2R11 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR11 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR11 = sEnemy4RTime;
+		}
+	}
+		}
+		if (sEnemy4R == 0x80087970){
+					if (sAnim2R12 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR12 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR12 = sEnemy4RTime;
+		}
+	}	
+		}
+		if (sEnemy4R == 0x800879c8){
+					if (sAnim2R13 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR13 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR13 = sEnemy4RTime;
+		}
+	}	
+		}
+		if (sEnemy4R == 0x80087a20){
+					if (sAnim2R14 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR14 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR14 = sEnemy4RTime;
+		}
+	}	
+		}
+		if (sEnemy4R == 0x80087a78){
+					if (sAnim2R15 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR15 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR15 = sEnemy4RTime;
+		}
+	}	
+		}
+		if (sEnemy4R == 0x80087ad0){
+					if (sAnim2R16 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR16 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR16 = sEnemy4RTime;
+		}
+	}	
+		}
+		if (sEnemy4R == 0x80087b28){
+					if (sAnim2R17 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR17 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR17 = sEnemy4RTime;
+		}
+	}	
+		}
+		if (sEnemy4R == 0x80087b80){
+					if (sAnim2R18 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR18 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR18 = sEnemy4RTime;
+		}
+	}	
+		}
+		if (sEnemy4R == 0x80087bd8){
+					if (sAnim2R19 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR19 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR19 = sEnemy4RTime;
+		}
+	}	 
+		}
+		if (sEnemy4R == 0x80087c30){
+					if (sAnim2R20 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR20 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR20 = sEnemy4RTime;
+		}
+	}	
+		}
+		if (sEnemy4R == 0x80087c88){
+					if (sAnim2R21 == 0x800eaef0){
+			if (sEnemy4RTime >= 0x04){
+			sAnimR21 = 0x04;}
+		else if (sEnemy4RTime <= 0x03){
+			sAnimR21 = sEnemy4RTime;
+		}
+	}
+		}
+		if (sEnemy5R == 0x800875a8){
+		if (sAnim2R1 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+				sAnimR1 = 0x04;}
+			else if (sEnemy5RTime <= 0x03){
+				sAnimR1 = sEnemy5RTime;
+			}
+		}
+	}
+		if (sEnemy5R == 0x80087600){
+					if (sAnim2R2 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR2 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR2 = sEnemy5RTime;
+		}
+	}
+		}
+		if (sEnemy5R == 0x80087658){
+					if (sAnim2R3 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR3 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR3 = sEnemy5RTime;
+		}
+	}
+		}
+		if (sEnemy5R == 0x800876b0){
+					if (sAnim2R4 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR4 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR4 = sEnemy5RTime;
+		}
+	}
+		}
+		if (sEnemy5R == 0x80087708){
+					if (sAnim2R5 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR5 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR5 = sEnemy5RTime;
+		}
+	}
+		}
+		if (sEnemy5R == 0x80087760){
+					if (sAnim2R6 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR6 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR6 = sEnemy5RTime;
+		}
+	}
+		}
+		if (sEnemy5R == 0x800877b8){
+					if (sAnim2R7 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR7 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR7 = sEnemy5RTime;
+		}
+	}
+		}
+		if (sEnemy5R == 0x80087910){
+					if (sAnim2R8 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR8 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR8 = sEnemy5RTime;
+		}
+	}
+		}
+		if (sEnemy5R == 0x80087868){
+					if (sAnim2R9 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR9 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR9 = sEnemy5RTime;
+		}
+	}
+		}
+		if (sEnemy5R == 0x800878c0){
+					if (sAnim2R10 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR10 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR10 = sEnemy5RTime;
+		}
+	}
+		}
+		if (sEnemy5R == 0x80087918){
+					if (sAnim2R11 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR11 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR11 = sEnemy5RTime;
+		}
+	}
+		}
+		if (sEnemy5R == 0x80087970){
+					if (sAnim2R12 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR12 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR12 = sEnemy5RTime;
+		}
+	}	
+		}
+		if (sEnemy5R == 0x800879c8){
+					if (sAnim2R13 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR13 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR13 = sEnemy5RTime;
+		}
+	}	
+		}
+		if (sEnemy5R == 0x80087a20){
+					if (sAnim2R14 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR14 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR14 = sEnemy5RTime;
+		}
+	}	
+		}
+		if (sEnemy5R == 0x80087a78){
+					if (sAnim2R15 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR15 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR15 = sEnemy5RTime;
+		}
+	}	
+		}
+		if (sEnemy5R == 0x80087ad0){
+					if (sAnim2R16 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR16 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR16 = sEnemy5RTime;
+		}
+	}	
+		}
+		if (sEnemy5R == 0x80087b28){
+					if (sAnim2R17 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR17 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR17 = sEnemy5RTime;
+		}
+	}	
+		}
+		if (sEnemy5R == 0x80087b80){
+					if (sAnim2R18 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR18 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR18 = sEnemy5RTime;
+		}
+	}	
+		}
+		if (sEnemy5R == 0x80087bd8){
+					if (sAnim2R19 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR19 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR19 = sEnemy5RTime;
+		}
+	}	 
+		}
+		if (sEnemy5R == 0x80087c30){
+					if (sAnim2R20 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR20 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR20 = sEnemy5RTime;
+		}
+	}	
+		}
+		if (sEnemy5R == 0x80087c88){
+					if (sAnim2R21 == 0x800eaef0){
+			if (sEnemy5RTime >= 0x04){
+			sAnimR21 = 0x04;}
+		else if (sEnemy5RTime <= 0x03){
+			sAnimR21 = sEnemy5RTime;
+		}
+	}
+		}
+		if (sEnemy6R == 0x800875a8){
+		if (sAnim2R1 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+				sAnimR1 = 0x04;}
+			else if (sEnemy6RTime <= 0x03){
+				sAnimR1 = sEnemy6RTime;
+			}
+		}
+	}
+		if (sEnemy6R == 0x80087600){
+					if (sAnim2R2 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR2 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR2 = sEnemy6RTime;
+		}
+	}
+		}
+		if (sEnemy6R == 0x80087658){
+					if (sAnim2R3 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR3 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR3 = sEnemy6RTime;
+		}
+	}
+		}
+		if (sEnemy6R == 0x800876b0){
+					if (sAnim2R4 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR4 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR4 = sEnemy6RTime;
+		}
+	}
+		}
+		if (sEnemy6R == 0x80087708){
+					if (sAnim2R5 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR5 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR5 = sEnemy6RTime;
+		}
+	}
+		}
+		if (sEnemy6R == 0x80087760){
+					if (sAnim2R6 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR6 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR6 = sEnemy6RTime;
+		}
+	}
+		}
+		if (sEnemy6R == 0x800877b8){
+					if (sAnim2R7 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR7 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR7 = sEnemy6RTime;
+		}
+	}
+		}
+		if (sEnemy6R == 0x80087910){
+					if (sAnim2R8 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR8 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR8 = sEnemy6RTime;
+		}
+	}
+		}
+		if (sEnemy6R == 0x80087868){
+					if (sAnim2R9 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR9 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR9 = sEnemy6RTime;
+		}
+	}
+		}
+		if (sEnemy6R == 0x800878c0){
+					if (sAnim2R10 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR10 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR10 = sEnemy6RTime;
+		}
+	}
+		}
+		if (sEnemy6R == 0x80087918){
+					if (sAnim2R11 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR11 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR11 = sEnemy6RTime;
+		}
+	}
+		}
+		if (sEnemy6R == 0x80087970){
+					if (sAnim2R12 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR12 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR12 = sEnemy6RTime;
+		}
+	}	
+		}
+		if (sEnemy6R == 0x800879c8){
+					if (sAnim2R13 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR13 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR13 = sEnemy6RTime;
+		}
+	}	
+		}
+		if (sEnemy6R == 0x80087a20){
+					if (sAnim2R14 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR14 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR14 = sEnemy6RTime;
+		}
+	}	
+		}
+		if (sEnemy6R == 0x80087a78){
+					if (sAnim2R15 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR15 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR15 = sEnemy6RTime;
+		}
+	}	
+		}
+		if (sEnemy6R == 0x80087ad0){
+					if (sAnim2R16 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR16 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR16 = sEnemy6RTime;
+		}
+	}	
+		}
+		if (sEnemy6R == 0x80087b28){
+					if (sAnim2R17 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR17 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR17 = sEnemy6RTime;
+		}
+	}	
+		}
+		if (sEnemy6R == 0x80087b80){
+					if (sAnim2R18 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR18 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR18 = sEnemy6RTime;
+		}
+	}	
+		}
+		if (sEnemy6R == 0x80087bd8){
+					if (sAnim2R19 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR19 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR19 = sEnemy6RTime;
+		}
+	}	 
+		}
+		if (sEnemy6R == 0x80087c30){
+					if (sAnim2R20 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR20 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR20 = sEnemy6RTime;
+		}
+	}	
+		}
+		if (sEnemy6R == 0x80087c88){
+					if (sAnim2R21 == 0x800eaef0){
+			if (sEnemy6RTime >= 0x04){
+			sAnimR21 = 0x04;}
+		else if (sEnemy6RTime <= 0x03){
+			sAnimR21 = sEnemy6RTime;
+		}
+	}
+		}
+//
+
+//Enemy Spell Adjust per Region
+	if (gCurrentMap == 0x02 || gCurrentMap == 0x1F){
+		gFireball = 0x00010000;
+		gWindcutter = 0x00020003;
+	}
+
+	if (gCurrentMap == 0x03 || gCurrentMap == 0x20 || gCurrentMap == 0x05 || gCurrentMap == 0x1B){
+		gFireball = 0x020000;
+		gWindcutter = 0x00030003;
+	}
+
+	if (gCurrentMap == 0x21 || gCurrentMap == 0x1A || gCurrentMap == 0x0C || gCurrentMap == 0x07 || gCurrentMap == 0x1C){
+		gFireball = 0x00020000;
+		gWindcutter = 0x00040003;
+	}
+
+	if (gCurrentMap == 0x09 || gCurrentMap == 0x1D || gCurrentMap == 0x0B || gCurrentMap == 0x1E || gCurrentMap == 0x22){
+		gFireball = 0x00030000;
+		gWindcutter = 0x00060003;
+	}
+//
+	
+//Auto Revive
+	if (gSpellCast == 0x0000030C){
+		if (gSpellTimer == 0x00010000){
+			if (gAutoRevive == 0x00){
+				gAutoRevive = 0x01;
+				sBrianBA |= 1;
+				sBrianBAT = 0xFF;
+				sBrianB = 0x01;
+			}
+		}
+	}
+
+	if (gAutoRevive == 0x01){
+		if (sBrianHP == 0x0000){
+			sBrianHP = sBrianMAXHP * 0.25;
+			gAutoRevive = 0x00;
+			sBrianBA |= 0;
+			sBrianBAT = 0x00;
+			sBrianB = 0x00;
+		}
+	}
+	
+	if (gAutoRevive == 0x01){
+		if (gBattleState2 == 0x00000000 || gBattleState2 == 0x00000016 || gBattleState2 == 0x00000406){
+			gAutoRevive = 0x00;
+		}
+	}
+//Auto Revive End
+
+
+//Encounter Rate Toggle On
+	if (gSpellCast == 0x00000309) {
+			if ((gEncounterFlag & 1) == 0x01){
+					if (gSpellTimer == 0x00040000){
+						gEncounterFloat = 0x49;
+						gEncounterStep = 0x32;
+						gEncounterMax = 0x07D0;
+						gEncounterFlag = 0x00;
+						gSoftSteps = 0x00400002;
+						gSpellTimer = gSpellTimer - 0x00030000;
+					}
+			}
+			
+			else if ((gEncounterFlag & 1) == 0x00){
+					if (gSpellTimer == 0x00030000){
+						gEncounterFloat = 0x59;
+						gEncounterStep = 0x64;
+						gEncounterMax = 0x0FA0;
+						gEncounterFlag = 0x01;
+						gSoftSteps = 0x00400004;
+						gSpellTimer = gSpellTimer - 0x00020000;
+					}
+				}
+			}
+	
+//Encounter Rate Toggle End
+
+//D-Pad Up to Save
+//	if (gGameButton == 0x08000000) {
+//if (gCurrentMap == 0x0f || gCurrentMap == 0x10 || gCurrentMap == 0x11 || gCurrentMap == 0x12 || gCurrentMap == //0x14 || gCurrentMap == 0x16 || gCurrentMap == 0x17 || gCurrentMap == 0x19 || gCurrentMap == 0x1a || gCurrentMap == 0x1e) {
+//			if (!(gCurrentMap == 0x1a && gNextSubmap == 0x01)) {
+//				if (!(gCurrentMap == 0x17 && (gNextSubmap == 0x00 || gNextSubmap == 0x08))) {
+//			gGameState = 0x00000480;
+//			gGameMode = 0x00020000;
+//			gGameState = 0x000005a0;
+//			}
+//			}
+//		}
+//	}
+
+//Shop Attempt Dondoran
+	if (gCurrentMap == 0x10) {
+			if (gNextSubmap == 0x0D) {
+				if (eMaggietext == 0x3A68 || eMaggietext == 0xDF00)  {
+					if (eTextlookup == 0x80c00E18) {
+						if (cbuttonpressed == 0x08){
+							if (sBrianStone >= 50){
+								sBrianItemPickup = 0x01;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 50;
+							}
+					}
+						if (cbuttonpressed == 0x02){
+							if (sBrianStone >= 75){
+								sBrianItemPickup = 0x05;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 75;
+							}
+					}
+						if (cbuttonpressed == 0x04){
+							if (sBrianStone >= 100){
+								sBrianItemPickup = 0x0C;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 100;
+							}
+					}
+						if (cbuttonpressed == 0x01){
+							if (sBrianStone >= 200){
+								sBrianItemPickup = 0x0A;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 200;
+							
+							}
+						}
+					}
+				if ((sBrianStone) >= 50){	
+				eMaggietext = 0xDF00;
+				}
+				else
+					eMaggietext = 0x3A68;
+				}
+				}
+		}
+		
+	//Shop Attempt Larapool
+	if (gCurrentMap == 0x11) {
+		if (gNextSubmap == 0x00) {
+			if (eGalitatext == 0x5AD0 || eGalitatext == 0xE000)  {
+				if (eTextlookup == 0x80c00E18) {
+						if (cbuttonpressed == 0x08){
+							if (sBrianStone >= 50){
+								sBrianItemPickup = 0x01;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 50;
+							}
+					}
+						if (cbuttonpressed == 0x02){
+							if (sBrianStone >= 75){
+								sBrianItemPickup = 0x05;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 75;
+							}
+					}
+						if (cbuttonpressed == 0x04){
+							if (sBrianStone >= 175){
+								sBrianItemPickup = 0x06;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 175;
+							}
+					}
+						if (cbuttonpressed == 0x01){
+							if (sBrianStone >= 250){
+								sBrianItemPickup = 0x0B;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 250;
+							
+							}
+						}
+					}
+				if ((sBrianStone) >= 50){	
+				eGalitatext = 0xE000;
+				}
+				else
+					eGalitatext = 0x5AD0;
+				}
+		}
+		}
+		
+		//Shop Attempt Normoon
+	if (gCurrentMap == 0x14) {
+			if (gNextSubmap == 0x02) {
+				if (eHectortext == 0x61D0 || eHectortext == 0xE100)  {
+					if (eTextlookup == 0x80c00E18) {
+						if (cbuttonpressed == 0x08){
+							if (sBrianStone >= 50){
+								sBrianItemPickup = 0x01;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 50;
+							}
+					}
+						if (cbuttonpressed == 0x02){
+							if (sBrianStone >= 150){
+								sBrianItemPickup = 0x02;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 150;
+							}
+					}
+						if (cbuttonpressed == 0x04){
+							if (sBrianStone >= 75){
+								sBrianItemPickup = 0x05;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 75;
+							}
+					}
+						if (cbuttonpressed == 0x01){
+							if (sBrianStone >= 275){
+								sBrianItemPickup = 0x08;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 275;
+							
+							}
+						}
+					}
+				if ((sBrianStone) >= 50){	
+				eHectortext = 0xE100;
+				}
+				else
+					eHectortext = 0x61D0;
+				}
+				}
+		}
+		
+		//Shop Attempt Limelin
+	if (gCurrentMap == 0x16) {
+			if (gNextSubmap == 0x14) {
+				if (eRoachtext == 0x7570 || eRoachtext == 0xE200)  {
+					if (eTextlookup == 0x80c00E18) {
+						if (cbuttonpressed == 0x08){
+							if (sBrianStone >= 150){
+								sBrianItemPickup = 0x02;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 150;
+							}
+					}
+						if (cbuttonpressed == 0x02){
+							if (sBrianStone >= 175){
+								sBrianItemPickup = 0x06;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 175;
+							}
+					}
+						if (cbuttonpressed == 0x04){
+							if (sBrianStone >= 275){
+								sBrianItemPickup = 0x08;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 275;
+							}
+					}
+						if (cbuttonpressed == 0x01){
+							if (sBrianStone >= 200){
+								sBrianItemPickup = 0x0A;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 200;
+							
+							}
+						}
+					}
+				if ((sBrianStone) >= 150){	
+				eRoachtext = 0xE200;
+				}
+				else
+					eRoachtext = 0x7570;
+				}
+				}
+		}
+		
+		//Shop Attempt Greenoch
+	if (gCurrentMap == 0x17) {
+			if (gNextSubmap == 0x05) {
+				if (eBronzetext == 0xB490 || eBronzetext == 0xE300)  {
+					if (eTextlookup == 0x80c00E18) {
+						if (cbuttonpressed == 0x08){
+							if (sBrianStone >= 300){
+								sBrianItemPickup = 0x03;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 300;
+							}
+					}
+						if (cbuttonpressed == 0x02){
+							if (sBrianStone >= 350){
+								sBrianItemPickup = 0x07;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 350;
+							}
+					}
+						if (cbuttonpressed == 0x04){
+							if (sBrianStone >= 350){
+								sBrianItemPickup = 0x09;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 350;
+							}
+					}
+						if (cbuttonpressed == 0x01){
+							if (sBrianStone >= 250){
+								sBrianItemPickup = 0x0B;
+								eTextopen = 0x00000000;
+								eTextID = 0x00000000;
+								sBrianStone = sBrianStone - 250;
+							
+							}
+						}
+					}
+				if ((sBrianStone) >= 250){	
+				eBronzetext = 0xE300;
+				}
+				else
+					eBronzetext = 0xb490;
+				}
+				}
+		}
+
+	//D-Pad Up to save
+		if (gGameButton == 0x08000000) {
+			if (gGameState == 0x00000000) {
+				if (gBattleState4 == 0x0000 || gBattleState4 == 0x0016 || gBattleState4 == 0x0406){
+					if (gCurrentMap == 0x0f || gCurrentMap == 0x10 || gCurrentMap == 0x11 || gCurrentMap == 0x12 || gCurrentMap == 0x14 || gCurrentMap == 0x16 || (gCurrentMap == 0x17 && gNextSubmap == 0x00) || (gCurrentMap == 0x17 && gNextSubmap == 0x08) || (gCurrentMap == 0x17 && gNextSubmap == 0x16) || gCurrentMap == 0x19 || gCurrentMap == 0x1a || gCurrentMap == 0x1e) {
+			//Can Save anywhere in Melrode, Dondoran, Larapool, Normoon, Limelin, Brannoch Castle, Only on 1st floor of Greenoch INN, Only on First Floor of Bation's INN, only on First Floor of Brannoch INN.
+						if (!(gCurrentMap == 0x1a && gNextSubmap == 0x01)) {
+							gGameState = 0x00000480;
+							gGameMode = 0x00020000;
+							gGameState = 0x000005a0;
+						}
+					}
+				}
+			}
+		}
+		
+		//Save Music
+		if (gGameState == 0x000005A0){
+			if (gGameMode == 0x00020000){
+				if (!(eBGM == 0x1313)){
+					eBGM = 0x1313;
+					eBGMTimer = 0x0001;
+				}
+			}
+		}
+// End Save Music
+
 }
-
-
 extern u32 rng_seed;
 u32 calls = 0;
 
