@@ -808,8 +808,10 @@ void mainCFunction(void) { //ran every frame
 		if (gCurrentMap == 17) {
 			if (gNextSubmap == 0) {
 				if (gEventflag2 & 1) {
+					if (eDonovantext == 0x5788){
 					if ((gEventflag2 & 2) == 0x0) {
 						eDonovantext = 0xbc00;
+					}
 					}
 				}
 			}
@@ -873,7 +875,9 @@ void mainCFunction(void) { //ran every frame
 			if (gNextSubmap == 0) {
 				if (gEventflag2 & 2) {
 					if (gEventflag2 & 4) {
+					if (eDonovantext == 0x5788 || eDonovantext == 0xBC00){
 						eDonovantext = 0xbf00;
+					}
 					}
 				}
 			}
