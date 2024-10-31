@@ -323,7 +323,7 @@ extern s8 D_8008FD0E;
 extern s32 D_8008FD10;
 extern u16 D_8008FD20;
 extern Gfx* gMasterGfxPos;
-extern s16 gGameMode;
+//extern s16 gGameMode;
 
 void func_80026A7C_Hook(s32 arg0) { //draw_pause_screen_main
     gSPDisplayList(gMasterGfxPos++, D_8005FAA0);
