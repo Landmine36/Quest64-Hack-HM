@@ -392,7 +392,7 @@ void func_800074A0_Hook(PlayerData* arg0, unkStruct3* arg1) {
             }
             arg1->unk64->unk6 += var_a0;
             arg1->unk64->unk4 += var_a0;
-            if (arg0->playerStats->unk30 < 1) {
+            if (arg0->playerStats->unk30 < 41) {
                 arg0->playerStats->unk30++;
             }
         }
