@@ -1055,68 +1055,117 @@ void mainCFunction(void) { //ran every frame
 		
 		//Solvaring 2
 		if (gEventflag13 & 128){
+			if (!(sSolvaMHP == 12000)){
 			sSolvaMHP = 12000;
 			sSolvaCHP = 12000;
 			sSolvaDEF = 500;
 			sSolvaAGI = 350;
 			sSolvaATK = 120;
 			sSolvaEXP = 500000;
-			sSolvaSTN = 250000;
+			sSolvaSTN = 25000;
 			sSolvaDRP = 0x1A000000;
 //			sSolvaringLocation 	=		
+			}
 		}
 		//Zelse 2
-//		if (gEventflag13 & 0x80){
-//			sZelseMHP = 15000;
-//			sZelseCHP = 15000;
-//			sZelseDEF = 625;
-//			sZelseAGI = 400;
-//			sZelseATK = 150;
+		if (gEventflag13 & 128){
+			if (!(sZelseMHP == 15000)){
+			sZelseMHP = 15000;
+			sZelseCHP = 15000;
+			sZelseDEF = 510;
+			sZelseAGI = 450;
+			sZelseATK = 150;
+			sZelseEXP = 510000;
+			sZelseSTN = 25000;
+			sZelseDRP = 0x1A000000;
 //			sZelseLocation = 0x00200000;
-//		}
+		}
+		}
+		
 		//Nepty 2
-//		if (gCurrentMap == 12) {
-//			if (gNextSubmap == 0) {
-//				if (gEventflag13 & 0x80){
-//					bossFlags -= bossFlags & 4;
-//				}
-//			}
-//		}
-		//Nepty Boss Spawn
-//		if (gCurrentMap == 35) {
-//			if (gNextSubmap == 0) {
-//				if ((bossFlags & 3) == 0x0) {
-//					bossonmap = 0x01;
-//				}
-//			}
-//		}
+		if (gEventflag13 & 128){
+			if (!(sNeptyMHP == 18000)){
+			sNeptyMHP = 18000;
+			sNeptyCHP = 18000;
+			sNeptyDEF = 520;
+			sNeptyAGI = 500;
+			sNeptyATK = 180;
+			sNeptyEXP = 520000;
+			sNeptySTN = 25000;
+			sNeptyDRP = 0x1A000000;
+//			sNeptyLocation = 0x00200000;
+		}
+		}
 		//Shilf 2
-//		if (gEventflag13 & 0x80){
-//		}
+		if (gEventflag13 & 128){
+			if (!(sShilfMHP == 21000)){
+			sShilfMHP = 21000;
+			sShilfCHP = 21000;
+			sShilfDEF = 530;
+			sShilfAGI = 550;
+			sShilfATK = 210;
+			sShilfEXP = 530000;
+			sShilfSTN = 25000;
+			sShilfDRP = 0x1A000000;
+//			sShilfLocation = 0x00200000;
+		}
+		}
 		//Fargo 2
-//		if (gEventflag13 & 0x80){
-//		}
+		if (gEventflag13 & 128){
+			if (!(sFargoMHP == 24000)){
+			sFargoMHP = 24000;
+			sFargoCHP = 24000;
+			sFargoDEF = 540;
+			sFargoAGI = 600;
+			sFargoATK = 240;
+//			sFargoEXP = 540000;
+//			sFargoSTN = 25000;
+//			sFargoDRP = 0x1A000000;
+//			sFargoLocation = 0x00200000;
+		}
+		}
 		//Guilty 2
-//		if (gEventflag13 & 0x80){
-//		}
+		if (gEventflag13 & 128){
+			if (!(sGuiltyMHP == 27000)){
+			sGuiltyMHP = 27000;
+			sGuiltyCHP = 27000;
+			sGuiltyDEF = 550;
+			sGuiltyAGI = 650;
+			sGuiltyATK = 270;
+//			sGuiltyEXP = 530000;
+//			sGuiltySTN = 25000;
+//			sGuiltyDRP = 0x1A000000;
+//			sGuiltyLocation = 0x00200000;
+		}
+		}
 		//Beigis 2
-//		if (gEventflag13 & 0x80){
-//		}
+		if (gEventflag13 & 128){
+			if (!(sBeigisMHP == 30000)){
+			sBeigisMHP = 30000;
+			sBeigisCHP = 30000;
+			sBeigisDEF = 560;
+			sBeigisAGI = 700;
+			sBeigisATK = 300;
+//			sBeigisEXP = 530000;
+//			sBeigisSTN = 25000;
+//			sBeigisDRP = 0x1A000000;
+//			sBeigisLocation = 0x00200000;
+		}
+		}
 	
 	//Mammon Empowered after Guilty
-//	if (gEventflag13 & 0x80){
-//		if (bossFlags & 0x20) {
-//			if (gCurrentMap == 34) {
-//				if (gNextSubmap == 10) {
-//					sMammonMHP = 32000;
-//					sMammonCHP = 32000;
-//					sMammonDEF = 550;
-//					sMammonAGI = 666;
-//					sMammonATK = 150;
-//				}
-//			}
-//		}
-//	}	
+	if (gEventflag13 & 128){
+		if (gEventflag17 == 0x7F) {
+			if (!(sMammonMHP == 32000)){
+					sMammonMHP = 32000;
+					sMammonCHP = 32000;
+					sMammonDEF = 666;
+					sMammonAGI = 999;
+					sMammonATK = 450;
+				}
+			}
+	}
+	
 	
 
 	//Spell Cost Reduce
