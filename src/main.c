@@ -920,8 +920,10 @@ void mainCFunction(void) { //ran every frame
 					
 		if (gCurrentMap == 0x12) {
 			if (gNextSubmap == 5) {	
-				if (eTextlookup == 0xa0c08113) {
-					gEventflag2 |= 16;
+				if (gEventflag2 & 8) {
+					if (eTextlookup == 0xa0c08113) {
+						gEventflag2 |= 16;
+					}
 				}
 			}
 		}
