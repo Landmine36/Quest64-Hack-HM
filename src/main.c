@@ -2906,6 +2906,66 @@ void mainCFunction(void) { //ran every frame
 		}
 // End Save Music
 
+//Elements Reset
+if (gCurrentMap == 0x10) {
+			if (gNextSubmap == 0x15) {
+				if (bossFlags >= 0x5F) {
+					if (gElementReset >= 1) {
+						if (gGameState == 0){
+							gGameState = 8;
+							gElementReset = gElementReset - 1;
+						}
+					}
+				}
+			}
+		}
+		
+		
+		
+		if (gCurrentMap == 0x10) {
+			if (gNextSubmap == 0x15) {
+				if (bossFlags >= 0x5F) {
+					if (sBrianStone >= 10000){
+						eMariontext = 0xe800;
+						if (gElementReset == 0) {
+							if (gGameState == 2){
+								if (eTextlookup == 0xA0c0800E) {
+									if (cbuttonpressed == 0x01){
+										gElementReset = sFireLvl - 1;
+										sFireLvl = 1;
+										sBrianStone = sBrianStone - 10000;
+										eTextopen = 0x00000000;
+										eTextID = 0x00000000;
+									}
+									if (cbuttonpressed == 0x04){
+										gElementReset = sEarthLvl - 1;
+										sEarthLvl = 1;
+										sBrianStone = sBrianStone - 10000;
+										eTextopen = 0x00000000;
+										eTextID = 0x00000000;
+									}
+									if (cbuttonpressed == 0x02){
+										gElementReset = sWaterLvl - 1;
+										sWaterLvl = 1;
+										sBrianStone = sBrianStone - 10000;
+										eTextopen = 0x00000000;
+										eTextID = 0x00000000;
+									}
+									if (cbuttonpressed == 0x08){
+										gElementReset = sWindLvl - 1;
+										sWindLvl = 1;
+										sBrianStone = sBrianStone - 10000;
+										eTextopen = 0x00000000;
+										eTextID = 0x00000000;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
 }
 extern u32 rng_seed;
 u32 calls = 0;

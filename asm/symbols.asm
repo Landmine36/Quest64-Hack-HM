@@ -112,6 +112,7 @@
 .definelabel gEventflag18, 0x800869F5
 .definelabel gEventflag19, 0x800869F6
 .definelabel gEventflag20, 0x800869F7
+.definelabel gElementReset, 0x800869FE
 .definelabel gSpiritflagforest, 0x80086AF0
 .definelabel gBossFlags, 0x8007D19C
 .definelabel gametime, 0x800859E0
@@ -137,6 +138,7 @@
 .definelabel eHectortext, 0x8016dfea
 .definelabel eRoachtext, 0x8018343c
 .definelabel eBronzetext, 0x8018cf3E
+.definelabel eMariontext, 0x80183202
 .definelabel eTextlookup, 0x8009067C
 .definelabel eTextopen, 0x800905C0
 .definelabel eTextID, 0x800905E0
