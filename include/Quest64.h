@@ -162,6 +162,8 @@ extern u16 sBrianDEFEXP;
 extern u16 sBrianAGIEXP;
 extern u32 sBrianELEEXP;
 extern u32 sBrianStone;
+extern u32 sBrianSize;
+extern u8 sBrianComp;
 extern u16 sHPEXPM;
 extern u16 sSHPEXPM;
 extern u16 sMPEXPM;

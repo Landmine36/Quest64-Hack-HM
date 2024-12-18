@@ -165,6 +165,8 @@
 .definelabel sBrianAGIEXP, 0x8007BAAC
 .definelabel sBrianELEEXP, 0x8007BA90
 .definelabel sBrianStone, 0x8007Ba94
+.definelabel sBrianSize, 0x8007BAF0
+.definelabel sBrianComp, 0x8007BB48
 .definelabel sElementLvl, 0x8007BAB4
 .definelabel sFireLvl, 0x8007BAA7
 .definelabel sEarthLvl, 0x8007BAA6
