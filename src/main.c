@@ -1392,19 +1392,10 @@ void mainCFunction(void) { //ran every frame
 	}
 //Drain Attack Fix End
 
-//Brian Shrunk Fix
-	if (sBrianSize == 0x3D0F5C29 && sBrianComp == 0x00) {
-		sBrianSize = 0x3D8F5C29;
-	}	
-//	if (sBrianSize == 0x3d0f5c29){
-//		if ((sBrianComp == false){
-//			sBrianSize = 0x3d8f5c29;
-//		}
-//	}
-	
-
-
-		
+//Brian Shrunk Fix	
+		if (sBrianSize == 0x3d0f5c29 && !(sBrianComp == 0x04)){
+				sBrianSize = 0x3d8f5c29;
+		}
 
 //Damage Number Color Change
 	if (gDamageNumbers == 0x00000001){
