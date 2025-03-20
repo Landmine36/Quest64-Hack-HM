@@ -1055,7 +1055,7 @@ void mainCFunction(void) { //ran every frame
 		
 			
 		
-		//Solvaring 2
+		//Solvaring Pride
 		if (gEventflag13 & 128){
 			if (!(sSolvaMHP == 12000)){
 			sSolvaMHP = 12000;
@@ -1069,7 +1069,7 @@ void mainCFunction(void) { //ran every frame
 //			sSolvaringLocation 	=		
 			}
 		}
-		//Zelse 2
+		//Zelse Envy
 		if (gEventflag13 & 128){
 			if (!(sZelseMHP == 15000)){
 			sZelseMHP = 15000;
@@ -1080,11 +1080,15 @@ void mainCFunction(void) { //ran every frame
 			sZelseEXP = 510000;
 			sZelseSTN = 25000;
 			sZelseDRP = 0x1A000000;
-//			sZelseLocation = 0x00200000;
+//			sZelseX = 0xC31AC3A7;
+//			sZelseZ = 0xC349246B;
+//			sZelseF = 0x3BC58D33;
+//			sZelseMAP = 0x0020;
+//			sZelseSUB = 0x0000;
 		}
 		}
 		
-		//Nepty 2
+		//Nepty Sloth
 		if (gEventflag13 & 128){
 			if (!(sNeptyMHP == 18000)){
 			sNeptyMHP = 18000;
@@ -1098,7 +1102,7 @@ void mainCFunction(void) { //ran every frame
 //			sNeptyLocation = 0x00200000;
 		}
 		}
-		//Shilf 2
+		//Shilf Lust
 		if (gEventflag13 & 128){
 			if (!(sShilfMHP == 21000)){
 			sShilfMHP = 21000;
@@ -1112,7 +1116,7 @@ void mainCFunction(void) { //ran every frame
 //			sShilfLocation = 0x00200000;
 		}
 		}
-		//Fargo 2
+		//Fargo Wrath
 		if (gEventflag13 & 128){
 			if (!(sFargoMHP == 24000)){
 			sFargoMHP = 24000;
@@ -1126,7 +1130,7 @@ void mainCFunction(void) { //ran every frame
 //			sFargoLocation = 0x00200000;
 		}
 		}
-		//Guilty 2
+		//Guilty Gluttony
 		if (gEventflag13 & 128){
 			if (!(sGuiltyMHP == 27000)){
 			sGuiltyMHP = 27000;
@@ -1140,7 +1144,7 @@ void mainCFunction(void) { //ran every frame
 //			sGuiltyLocation = 0x00200000;
 		}
 		}
-		//Beigis 2
+		//Beigis Sorrow
 		if (gEventflag13 & 128){
 			if (!(sBeigisMHP == 30000)){
 			sBeigisMHP = 30000;
@@ -1155,7 +1159,7 @@ void mainCFunction(void) { //ran every frame
 		}
 		}
 	
-	//Mammon Empowered after Guilty
+	//Mammon Greed
 	if (gEventflag13 & 128){
 		if (gEventflag17 == 0x7F) {
 			if (!(sMammonMHP == 32000)){
