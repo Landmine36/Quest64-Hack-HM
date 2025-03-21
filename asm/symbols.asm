@@ -208,6 +208,13 @@
 .definelabel sZelseEXP, 0x803A9F68
 .definelabel sZelseSTN, 0x803A9F6C
 .definelabel sZelseDRP, 0x803A9F8C
+.definelabel sZelseX, 0x803a9af4
+.definelabel sZelseZ, 0x803a9af8
+.definelabel sZelseF, 0x803a9afc
+.definelabel sZelseMap, 0x803a9ae8
+.definelabel sZelseName, 0x803aabdc
+.definelabel sZelseBName, 0x803aabbc
+.definelabel sZelseText, 0x803aabfc
 .definelabel sNeptyMHP, 0x803A9F94
 .definelabel sNeptyCHP, 0x803A9F96
 .definelabel sNeptyDEF, 0x803A9F9E

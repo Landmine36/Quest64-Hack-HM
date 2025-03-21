@@ -1069,7 +1069,7 @@ void mainCFunction(void) { //ran every frame
 //			sSolvaringLocation 	=		
 			}
 		}
-		//Zelse Envy
+		//Zelse Sorrow
 		if (gEventflag13 & 128){
 			if (!(sZelseMHP == 15000)){
 			sZelseMHP = 15000;
@@ -1080,11 +1080,13 @@ void mainCFunction(void) { //ran every frame
 			sZelseEXP = 510000;
 			sZelseSTN = 25000;
 			sZelseDRP = 0x1A000000;
-//			sZelseX = 0xC31AC3A7;
-//			sZelseZ = 0xC349246B;
-//			sZelseF = 0x3BC58D33;
-//			sZelseMAP = 0x0020;
-//			sZelseSUB = 0x0000;
+			sZelseX = 0xC31AC3A7;
+			sZelseZ = 0xC349246B;
+			sZelseF = 0x3BC58D33;
+			sZelseMap = 0x0020;
+			sZelseName= 0x8040ef14;
+			sZelseBName= 0x8040ef68;
+			sZelseText = 0x8040f100;
 		}
 		}
 		
@@ -1144,7 +1146,7 @@ void mainCFunction(void) { //ran every frame
 //			sGuiltyLocation = 0x00200000;
 		}
 		}
-		//Beigis Sorrow
+		//Beigis Envy
 		if (gEventflag13 & 128){
 			if (!(sBeigisMHP == 30000)){
 			sBeigisMHP = 30000;
