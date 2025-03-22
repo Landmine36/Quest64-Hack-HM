@@ -1060,13 +1060,21 @@ void mainCFunction(void) { //ran every frame
 			if (!(sSolvaMHP == 12000)){
 			sSolvaMHP = 12000;
 			sSolvaCHP = 12000;
-			sSolvaDEF = 500;
+			sSolvaDEF = 1000;
 			sSolvaAGI = 350;
 			sSolvaATK = 120;
 			sSolvaEXP = 500000;
 			sSolvaSTN = 25000;
 			sSolvaDRP = 0x1A000000;
-//			sSolvaringLocation 	=		
+//			sSolvaX = 0x;	
+//			sSolvaZ = 0x;	
+//			sSolvaF = 0x;	
+//			sSolvaMap = 0x;	
+//			sSolvaName = 0x;	
+//			sSolvaBName = 0x;	
+//			sSolvaText = 0x;	
+//			sSolvaS1 = 0x;	
+//			sSolvaS2 = 0x;	
 			}
 		}
 		//Zelse Sorrow
@@ -1074,9 +1082,9 @@ void mainCFunction(void) { //ran every frame
 			if (!(sZelseMHP == 15000)){
 			sZelseMHP = 15000;
 			sZelseCHP = 15000;
-			sZelseDEF = 510;
+			sZelseDEF = 1020;
 			sZelseAGI = 450;
-			sZelseATK = 150;
+			sZelseATK = 125;
 			sZelseEXP = 510000;
 			sZelseSTN = 25000;
 			sZelseDRP = 0x1A000000;
@@ -1087,6 +1095,9 @@ void mainCFunction(void) { //ran every frame
 			sZelseName= 0x8040ef14;
 			sZelseBName= 0x8040ef68;
 			sZelseText = 0x8040f100;
+			sZelseS1 = 0x830a;
+			sZelseS2 = 0x830b;
+			sZelseS3 = 0x8307;
 		}
 		}
 		
@@ -1095,13 +1106,21 @@ void mainCFunction(void) { //ran every frame
 			if (!(sNeptyMHP == 18000)){
 			sNeptyMHP = 18000;
 			sNeptyCHP = 18000;
-			sNeptyDEF = 520;
+			sNeptyDEF = 1040;
 			sNeptyAGI = 500;
-			sNeptyATK = 180;
+			sNeptyATK = 130;
 			sNeptyEXP = 520000;
 			sNeptySTN = 25000;
 			sNeptyDRP = 0x1A000000;
-//			sNeptyLocation = 0x00200000;
+//			sNeptyX = 0x;	
+//			sNeptyZ = 0x;	
+//			sNeptyF = 0x;	
+//			sNeptyMap = 0x;	
+//			sNeptyName = 0x;	
+//			sNeptyBName = 0x;	
+//			sNeptyText = 0x;	
+//			sNeptyS1 = 0x;	
+//			sNeptyS2 = 0x;	
 		}
 		}
 		//Shilf Lust
@@ -1109,13 +1128,21 @@ void mainCFunction(void) { //ran every frame
 			if (!(sShilfMHP == 21000)){
 			sShilfMHP = 21000;
 			sShilfCHP = 21000;
-			sShilfDEF = 530;
+			sShilfDEF = 1060;
 			sShilfAGI = 550;
-			sShilfATK = 210;
+			sShilfATK = 135;
 			sShilfEXP = 530000;
 			sShilfSTN = 25000;
 			sShilfDRP = 0x1A000000;
-//			sShilfLocation = 0x00200000;
+//			sShilfX = 0x;	
+//			sShilfZ = 0x;	
+//			sShilfF = 0x;	
+//			sShilfMap = 0x;	
+//			sShilfName = 0x;	
+//			sShilfBName = 0x;	
+//			sShilfText = 0x;	
+//			sShilfS1 = 0x;	
+//			sShilfS2 = 0x;	
 		}
 		}
 		//Fargo Wrath
@@ -1123,13 +1150,21 @@ void mainCFunction(void) { //ran every frame
 			if (!(sFargoMHP == 24000)){
 			sFargoMHP = 24000;
 			sFargoCHP = 24000;
-			sFargoDEF = 540;
+			sFargoDEF = 1080;
 			sFargoAGI = 600;
-			sFargoATK = 240;
+			sFargoATK = 140;
 //			sFargoEXP = 540000;
 //			sFargoSTN = 25000;
 //			sFargoDRP = 0x1A000000;
-//			sFargoLocation = 0x00200000;
+//			sFargoX = 0x;	
+//			sFargoZ = 0x;	
+//			sFargoF = 0x;	
+//			sFargoMap = 0x;	
+//			sFargoName = 0x;	
+//			sFargoBName = 0x;	
+//			sFargoText = 0x;	
+//			sFargoS1 = 0x;	
+//			sFargoS2 = 0x;	
 		}
 		}
 		//Guilty Gluttony
@@ -1137,13 +1172,21 @@ void mainCFunction(void) { //ran every frame
 			if (!(sGuiltyMHP == 27000)){
 			sGuiltyMHP = 27000;
 			sGuiltyCHP = 27000;
-			sGuiltyDEF = 550;
+			sGuiltyDEF = 1100;
 			sGuiltyAGI = 650;
-			sGuiltyATK = 270;
+			sGuiltyATK = 145;
 //			sGuiltyEXP = 530000;
 //			sGuiltySTN = 25000;
 //			sGuiltyDRP = 0x1A000000;
-//			sGuiltyLocation = 0x00200000;
+//			sGuiltyX = 0x;	
+//			sGuiltyZ = 0x;	
+//			sGuiltyF = 0x;	
+//			sGuiltyMap = 0x;	
+//			sGuiltyName = 0x;	
+//			sGuiltyBName = 0x;	
+//			sGuiltyText = 0x;	
+//			sGuiltyS1 = 0x;	
+//			sGuiltyS2 = 0x;	
 		}
 		}
 		//Beigis Envy
@@ -1151,25 +1194,39 @@ void mainCFunction(void) { //ran every frame
 			if (!(sBeigisMHP == 30000)){
 			sBeigisMHP = 30000;
 			sBeigisCHP = 30000;
-			sBeigisDEF = 560;
+			sBeigisDEF = 1120;
 			sBeigisAGI = 700;
-			sBeigisATK = 300;
+			sBeigisATK = 150;
 //			sBeigisEXP = 530000;
 //			sBeigisSTN = 25000;
 //			sBeigisDRP = 0x1A000000;
-//			sBeigisLocation = 0x00200000;
+//			sBeigisX = 0x;	
+//			sBeigisZ = 0x;	
+//			sBeigisF = 0x;	
+//			sBeigisMap = 0x;	
+//			sBeigisName = 0x;	
+//			sBeigisBName = 0x;	
+//			sBeigisText = 0x;	
+//			sBeigisS1 = 0x;	
+//			sBeigisS2 = 0x;	
 		}
 		}
 	
 	//Mammon Greed
 	if (gEventflag13 & 128){
-		if (gEventflag17 == 0x7F) {
+		if (gEventflag16 == 0x7F) {
 			if (!(sMammonMHP == 32000)){
 					sMammonMHP = 32000;
 					sMammonCHP = 32000;
-					sMammonDEF = 666;
-					sMammonAGI = 999;
-					sMammonATK = 450;
+					sMammonDEF = 999;
+					sMammonAGI = 1500;
+					sMammonATK = 150;	
+					sMammonName = 0x8040ef52;	
+					sMammonBName = 0x8040ef98;	
+					sMammonText = 0x8040f800;	
+//					sMammonS1 = 0x;	
+//					sMammonS2 = 0x;		
+//					sMammonS3 = 0x;					
 				}
 			}
 	}

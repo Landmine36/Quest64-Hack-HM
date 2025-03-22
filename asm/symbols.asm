@@ -215,6 +215,9 @@
 .definelabel sZelseName, 0x803aabdc
 .definelabel sZelseBName, 0x803aabbc
 .definelabel sZelseText, 0x803aabfc
+.definelabel sZelseS1, 0x803a9da0
+.definelabel sZelseS2, 0x803a9db8
+.definelabel sZelseS3, 0x803a9dd0
 .definelabel sNeptyMHP, 0x803A9F94
 .definelabel sNeptyCHP, 0x803A9F96
 .definelabel sNeptyDEF, 0x803A9F9E
@@ -257,6 +260,12 @@
 .definelabel sMammonAGI, 0x803AA0B6
 .definelabel sMammonATK, 0x803AA0D2
 .definelabel sMammonELE, 0x803AA0CC
+.definelabel sMammonName, 0x803aabf4
+.definelabel sMammonBName, 0x803aabd4
+.definelabel sMammonText, 0x803aac14
+.definelabel sMammonS1, 0x803a9da0
+.definelabel sMammonS2, 0x803a9db8
+.definelabel sMammonS3, 0x803a9dd0
 .definelabel sCurrentenemy, 0x8007CA0D
 .definelabel sEnemyHP, 0x8007C9A2
 .definelabel sEnemyATK, 0x8007CAAC
