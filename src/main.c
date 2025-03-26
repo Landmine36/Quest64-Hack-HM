@@ -1066,13 +1066,13 @@ void mainCFunction(void) { //ran every frame
 			sSolvaEXP = 500000;
 			sSolvaSTN = 25000;
 			sSolvaDRP = 0x1A000000;
-//			sSolvaX = 0x;	
-//			sSolvaZ = 0x;	
-//			sSolvaF = 0x;	
-//			sSolvaMap = 0x;	
-//			sSolvaName = 0x;	
-//			sSolvaBName = 0x;	
-//			sSolvaText = 0x;	
+//			sSolvaX = 0x00000000;	
+//			sSolvaZ = 0x00000000;	
+//			sSolvaF = 0x00000000;	
+//			sSolvaMap = 0x000E0001;	
+//			sSolvaName = 0x8040ef0A;	
+//			sSolvaBName = 0x8040ef60;	
+//			sSolvaText = 0x8040f000;	
 //			sSolvaS1 = 0x;	
 //			sSolvaS2 = 0x;	
 			}
@@ -1112,13 +1112,13 @@ void mainCFunction(void) { //ran every frame
 			sNeptyEXP = 520000;
 			sNeptySTN = 25000;
 			sNeptyDRP = 0x1A000000;
-//			sNeptyX = 0x;	
-//			sNeptyZ = 0x;	
-//			sNeptyF = 0x;	
-//			sNeptyMap = 0x;	
-//			sNeptyName = 0x;	
-//			sNeptyBName = 0x;	
-//			sNeptyText = 0x;	
+//			sNeptyX = 0xc3a9ec04;	
+//			sNeptyZ = 0xc3403c6d;	
+//			sNeptyF = 0x3fe00000;	
+//			sNeptyMap = 0x0002;	
+//			sNeptyName = 0x8040ef1f;	
+//			sNeptyBName = 0x8040ef70;	
+//			sNeptyText = 0x8040f200;	
 //			sNeptyS1 = 0x;	
 //			sNeptyS2 = 0x;	
 		}
@@ -1138,9 +1138,9 @@ void mainCFunction(void) { //ran every frame
 //			sShilfZ = 0x;	
 //			sShilfF = 0x;	
 //			sShilfMap = 0x;	
-//			sShilfName = 0x;	
-//			sShilfBName = 0x;	
-//			sShilfText = 0x;	
+//			sShilfName = 0x8040ef29;	
+//			sShilfBName = 0x8040ef78;	
+//			sShilfText = 0x8040f300;	
 //			sShilfS1 = 0x;	
 //			sShilfS2 = 0x;	
 		}
@@ -1156,13 +1156,13 @@ void mainCFunction(void) { //ran every frame
 //			sFargoEXP = 540000;
 //			sFargoSTN = 25000;
 //			sFargoDRP = 0x1A000000;
-//			sFargoX = 0x;	
-//			sFargoZ = 0x;	
-//			sFargoF = 0x;	
-//			sFargoMap = 0x;	
-//			sFargoName = 0x;	
-//			sFargoBName = 0x;	
-//			sFargoText = 0x;	
+//			sFargoX = 0xc4407a70;	
+//			sFargoZ = 0xc3d630e3;	
+//			sFargoF = 0x3f400000;	
+//			sFargoMap = 0x0008;	
+//			sFargoName = 0x8040ef32;	
+//			sFargoBName = 0x8040ef80;	
+//			sFargoText = 0x8040f400;	
 //			sFargoS1 = 0x;	
 //			sFargoS2 = 0x;	
 		}
@@ -1178,13 +1178,13 @@ void mainCFunction(void) { //ran every frame
 //			sGuiltyEXP = 530000;
 //			sGuiltySTN = 25000;
 //			sGuiltyDRP = 0x1A000000;
-//			sGuiltyX = 0x;	
-//			sGuiltyZ = 0x;	
-//			sGuiltyF = 0x;	
-//			sGuiltyMap = 0x;	
-//			sGuiltyName = 0x;	
-//			sGuiltyBName = 0x;	
-//			sGuiltyText = 0x;	
+//			sGuiltyX = 0xc4b00000;	
+//			sGuiltyZ = 0xc3200000;	
+//			sGuiltyF = 0x3fc80000;	
+//			sGuiltyMap = 0x000B0001;	
+//			sGuiltyName = 0x8040ef3c;	
+//			sGuiltyBName = 0x8040ef88;	
+//			sGuiltyText = 0x8040f500;	
 //			sGuiltyS1 = 0x;	
 //			sGuiltyS2 = 0x;	
 		}
@@ -1200,13 +1200,9 @@ void mainCFunction(void) { //ran every frame
 //			sBeigisEXP = 530000;
 //			sBeigisSTN = 25000;
 //			sBeigisDRP = 0x1A000000;
-//			sBeigisX = 0x;	
-//			sBeigisZ = 0x;	
-//			sBeigisF = 0x;	
-//			sBeigisMap = 0x;	
-//			sBeigisName = 0x;	
-//			sBeigisBName = 0x;	
-//			sBeigisText = 0x;	
+//			sBeigisName = 0x8040ef49;	
+//			sBeigisBName = 0x8040ef90;	
+//			sBeigisText = 0x8040f600;	
 //			sBeigisS1 = 0x;	
 //			sBeigisS2 = 0x;	
 		}
