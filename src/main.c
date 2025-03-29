@@ -1038,14 +1038,14 @@ void mainCFunction(void) { //ran every frame
 		}
 		
 		if (gEventflag13 & 128) {
-			if ((gCurrentMap == 2)|(gCurrentMap == 3)|(gCurrentMap == 5)|(gCurrentMap == 7)|(gCurrentMap == 9)|(gCurrentMap == 10)|(gCurrentMap == 12)|(gCurrentMap == 19)|(gCurrentMap == 23)|(gCurrentMap == 26 && (!(gNextSubmap == 3)))|(gCurrentMap == 27)|(gCurrentMap == 28)|(gCurrentMap == 29)|(gCurrentMap == 30)|(gCurrentMap == 31)|(gCurrentMap == 32)|(gCurrentMap == 32 && (!(gNextSubmap == 1)))|(gCurrentMap == 33)|(gCurrentMap == 34)|(gCurrentMap == 35)) {
+			if ((gCurrentMap == 0 && (gNextSubmap == 3))|(gCurrentMap == 2)|(gCurrentMap == 3)|(gCurrentMap == 5)|(gCurrentMap == 7)|(gCurrentMap == 8 && (gNextSubmap == 0))|(gCurrentMap == 9)|(gCurrentMap == 10)|(gCurrentMap == 12)|(gCurrentMap == 14 && (gNextSubmap == 1))|(gCurrentMap == 19)|(gCurrentMap == 23)|(gCurrentMap == 26 && (!(gNextSubmap == 3)))|(gCurrentMap == 27)|(gCurrentMap == 28)|(gCurrentMap == 29)|(gCurrentMap == 30)|(gCurrentMap == 31)|(gCurrentMap == 32)|(gCurrentMap == 32 && (!(gNextSubmap == 1)))|(gCurrentMap == 33)|(gCurrentMap == 34)|(gCurrentMap == 35)) {
 				gEventBossRead = 0x69F3;
 				gEventBossWrite = 0x69F3;
 //				gEventBossRRead = 0x69F3;
 //				gEventBossRWrite = 0x69F3;
 			}
 //			else if (!(gCurrentMap == 26|gCurrentMap == 31|gCurrentMap == 35|gCurrentMap == 12)) {
-			else if (!(gCurrentMap == 2)|(gCurrentMap == 3)|(gCurrentMap == 5)|(gCurrentMap == 7)|(gCurrentMap == 9)|(gCurrentMap == 10)|(gCurrentMap == 12)|(gCurrentMap == 19)|(gCurrentMap == 23)|(gCurrentMap == 26 && (!(gNextSubmap == 3)))|(gCurrentMap == 27)|(gCurrentMap == 28)|(gCurrentMap == 29)|(gCurrentMap == 30)|(gCurrentMap == 31)|(gCurrentMap == 32)|(gCurrentMap == 32 && (!(gNextSubmap == 1)))|(gCurrentMap == 33)|(gCurrentMap == 34)|(gCurrentMap == 35)) {
+			else if (!(gCurrentMap == 0 && (!(gNextSubmap == 3)))|(gCurrentMap == 2)|(gCurrentMap == 3)|(gCurrentMap == 5)|(gCurrentMap == 7)|(gCurrentMap == 8 && (!(gNextSubmap == 0)))|(gCurrentMap == 9)|(gCurrentMap == 10)|(gCurrentMap == 12)|(gCurrentMap == 14 && (!(gNextSubmap == 1)))|(gCurrentMap == 19)|(gCurrentMap == 23)|(gCurrentMap == 26 && (!(gNextSubmap == 3)))|(gCurrentMap == 27)|(gCurrentMap == 28)|(gCurrentMap == 29)|(gCurrentMap == 30)|(gCurrentMap == 31)|(gCurrentMap == 32)|(gCurrentMap == 32 && (!(gNextSubmap == 1)))|(gCurrentMap == 33)|(gCurrentMap == 34)|(gCurrentMap == 35)) {
 				gEventBossRead = 0xD19C;
 				gEventBossWrite = 0xD19C;
 //				gEventBossRRead = 0xD19C;
