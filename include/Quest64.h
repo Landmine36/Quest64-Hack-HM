@@ -6,6 +6,8 @@
 #include "enums.h"
 #include "macros.h"
 
+typedef unsigned char u8;
+
 typedef struct SpellData {
 /* 0x00 */ u16 levelRequirement;
 /* 0x02 */ u16 ifAttackDisappearOnHit;
@@ -164,6 +166,7 @@ extern u32 sBrianELEEXP;
 extern u32 sBrianStone;
 extern u32 sBrianSize;
 extern u8 sBrianComp;
+extern u8 sInventory;
 extern u16 sHPEXPM;
 extern u16 sSHPEXPM;
 extern u16 sMPEXPM;

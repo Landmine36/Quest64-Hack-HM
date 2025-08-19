@@ -3030,6 +3030,29 @@ if (gCurrentMap == 0x10) {
 			}
 		}
 
+	
+//	void clean_inventory(void)
+//{
+//    u8 *ptr = &sInventory;
+//
+//    for (u8 step = 0; step < 150; step++, ptr++) {
+//        u8 val = *ptr;
+//
+//        // Stop scanning early if we hit empty slot
+//        if (val == 0xFF) {
+//            break;
+//        }
+//
+//        // Remove AP Item Unimportant, AP Item Important
+//        if (val == 0x1A || val == 0x1B) {
+//            *ptr = 0xFF;
+//        }
+//    }
+//}	
+	//	if (gGameState == 0x00000000){
+	//	clean_inventory();}
+	
+		
 }
 extern u32 rng_seed;
 u32 calls = 0;

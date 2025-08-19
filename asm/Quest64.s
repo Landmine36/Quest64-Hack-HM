@@ -64,9 +64,9 @@ NOP
 //J itemRemovalHook3
 //NOP
 
-.org 0x80026A7C
-J func_80026A7C_Hook
-NOP
+//.org 0x80026A7C
+//J func_80026A7C_Hook
+//NOP
 
 .org 0x800278B0
 J func_800278B0_Hook

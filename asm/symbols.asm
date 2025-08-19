@@ -81,6 +81,7 @@
 
 //data
 .definelabel gInventory, 0x8008cf78
+.definelabel sInventory, 0x8008CF78
 .definelabel gToggleOn,0x800869f9
 .definelabel gDamageNumbers, 0x800873e4
 .definelabel gDamageColor, 0x8004cfa4

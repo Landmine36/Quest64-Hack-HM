@@ -325,65 +325,65 @@ extern u16 D_8008FD20;
 extern Gfx* gMasterGfxPos;
 //extern s16 gGameMode;
 
-void func_80026A7C_Hook(s32 arg0) { //draw_pause_screen_main
-    gSPDisplayList(gMasterGfxPos++, D_8005FAA0);
-    gDPSetTextureLUT(gMasterGfxPos++, G_TT_RGBA16);
-    func_8002A668(&gMasterGfxPos);
-    D_8008FD10 += 1;
-    if (D_8008FD0C & 0x4000) {
-        func_8002B57C();
-    }
-    else if (D_8008FD0C & 0x2000) {
-        func_80026D1C();
-    } else {
-        switch (D_8008FD0C & 7) {                              /* irregular */
-        case 0:
-            func_80026F34(0);
-            break;
-        case 1:
-            func_800278B0_Hook(0);
-            break;
-        case 2:
-            func_80028624(0);
-            break;
-        case 3:
-            func_80029448_Hook(0);
-            break;
+//void func_80026A7C_Hook(s32 arg0) { //draw_pause_screen_main
+//    gSPDisplayList(gMasterGfxPos++, D_8005FAA0);
+//    gDPSetTextureLUT(gMasterGfxPos++, G_TT_RGBA16);
+//    func_8002A668(&gMasterGfxPos);
+//    D_8008FD10 += 1;
+//    if (D_8008FD0C & 0x4000) {
+//        func_8002B57C();
+//    }
+//    else if (D_8008FD0C & 0x2000) {
+//        func_80026D1C();
+//    } else {
+//        switch (D_8008FD0C & 7) {                              /* irregular */
+//        case 0:
+//            func_80026F34(0);
+//            break;
+//        case 1:
+//            func_800278B0_Hook(0);
+//            break;
+//        case 2:
+//            func_80028624(0);
+//            break;
+//        case 3:
+//            func_80029448_Hook(0);
+//            break;
         //added case, not accessible currently
-        case 4:
-            func_80029448_Hook(0);
-            break;
-        }    
-    }
+//        case 4:
+//            func_80029448_Hook(0);
+//            break;
+//        }    
+//    }
 
-    D_8008FD0C = D_8008FD0C & ~0x0010;
-    gDPSetTextureLUT(gMasterGfxPos++, G_TT_NONE);
-    gDPSetBlendColor(gMasterGfxPos++, 0, 0, 0, 1);
-    if (((D_80092876 & 0x4000) || (D_80092876 & 0x1000)) && !(D_8008FD0C & 0x4000)) {
-        D_8008FD0C &= ~0x8000;
-        func_800268D4(0, 1, 0xFF);
-    }
-    if (!(D_8008FD0C & 0x8000)) {
-        if (D_8008FD0C & 0x4000) {
-            switch (D_8008FD0C & 0xC) {                      /* switch 1; irregular */
-            case 0:                                 /* switch 1 */
-                if (D_8008FD20 & 0x80) {
-                    gGameMode = 1;
-                    D_8008FD0E = 1;
-                } else {
-                    gGameMode = 3;
-                    D_8008FD0E = 0;
-                }
-                break;
-            case 8:                                 /* switch 1 */
-                gGameMode = 3;
-                break;
-            case 4:                                 /* switch 1 */
-                gGameMode = 1;
-            }
-        } else {
-            gGameMode = 1;
-        }
-        func_80026A40();
-    }
-}
+//    D_8008FD0C = D_8008FD0C & ~0x0010;
+//    gDPSetTextureLUT(gMasterGfxPos++, G_TT_NONE);
+//    gDPSetBlendColor(gMasterGfxPos++, 0, 0, 0, 1);
+//    if (((D_80092876 & 0x4000) || (D_80092876 & 0x1000)) && !(D_8008FD0C & 0x4000)) {
+//        D_8008FD0C &= ~0x8000;
+//        func_800268D4(0, 1, 0xFF);
+//    }
+//    if (!(D_8008FD0C & 0x8000)) {
+//        if (D_8008FD0C & 0x4000) {
+//            switch (D_8008FD0C & 0xC) {                      /* switch 1; irregular */
+//            case 0:                                 /* switch 1 */
+//                if (D_8008FD20 & 0x80) {
+//                    gGameMode = 1;
+//                    D_8008FD0E = 1;
+//                } else {
+//                    gGameMode = 3;
+//                    D_8008FD0E = 0;
+//                }
+//                break;
+//            case 8:                                 /* switch 1 */
+//                gGameMode = 3;
+//                break;
+//            case 4:                                 /* switch 1 */
+//                gGameMode = 0;
+//            }
+//        } else {
+//            gGameMode = 0;
+//        }
+//        func_80026A40();
+//    }
+//}
