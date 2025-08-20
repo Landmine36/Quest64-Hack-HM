@@ -1174,7 +1174,7 @@ void mainCFunction(void) { //ran every frame
 			sGuiltyCHP = 27000;
 			sGuiltyDEF = 1100;
 			sGuiltyAGI = 650;
-			sGuiltyATK = 110;
+			sGuiltyATK = 128;
 			sGuiltyEXP = 530000;
 			sGuiltySTN = 25000;
 			sGuiltyDRP = 0x1A000000;

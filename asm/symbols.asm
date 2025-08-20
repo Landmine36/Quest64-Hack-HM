@@ -246,7 +246,7 @@
 .definelabel sShilfCHP, 0x803A9FCE
 .definelabel sShilfDEF, 0x803A9FD6
 .definelabel sShilfAGI, 0x803A9FD4
-.definelabel sShilfATK, 0x803A9FE2
+.definelabel sShilfATK, 0x803A9FF2
 .definelabel sShilfELE, 0x803A9FDC
 .definelabel sShilfEXP, 0x803A9FD8
 .definelabel sShilfSTN, 0x803A9FDC
