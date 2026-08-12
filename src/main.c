@@ -9,6 +9,67 @@
 
 #define BRIAN_TURN 1
 
+typedef unsigned char uint8_t;
+
+/* ---- Placeholder addresses / constants ---- */
+#define INVENTORY_SECTION1_START   0x8008cf78
+#define INVENTORY_SECTION1_SIZE    75
+#define INVENTORY_SECTION2_START   0x8008cfc3
+#define INVENTORY_SECTION2_SIZE    32
+#define GAME_STATE_ADDR       0x8007B2E4
+#define GAME_STATE_TITLE      		1
+#define MAX_VALID_ITEM_ID			0x20
+#define ITEM_LIST_END              0xFF
+#define QTY_FLAG_BIT               0x80
+#define QTY_VALUE_MASK             0x7F
+
+#define ADDR_LDA_BASE       0x80003AE7  /*  Base ATK set (native 0x10) */
+#define ADDR_LDA_ATK_UP_1   0x8001712B  /*  Atk Up 1 set (native 0x18) */
+#define ADDR_LDA_ATK_UP_2   0x8001713F  /*  Atk Up 2 set (native 0x20) */
+#define ADDR_LDA_DISPEL     0x80016CF7  /*  Dispel set   (native 0x10) */
+#define ADDR_LDA_WEAR_OFF   0x80018197  /*  Wear-off set (native 0x10) */
+#define ADDR_CURRENT_MAX_HP      0x8007BA86  /*  u16, 0-999 */
+#define ADDR_ELEMENTAL_TOTAL     0x8007BBBC  /*sum of all elemental levels */
+#define ADDR_ELEMENTAL_FIRE   0x8007baa4  
+#define ADDR_ELEMENTAL_EARTH  0x8007baa5  
+#define ADDR_ELEMENTAL_WATER  0x8007baa6  
+#define ADDR_ELEMENTAL_WIND   0x8007baa7  
+#define HP_WEIGHT_X100    2775   /* 27.75 -> 25% of 111 */
+#define ELEM_WEIGHT_X100  8325   /* 83.25 -> 75% of 111 */
+#define BASE_STRENGTH     0x10
+#define STARTING_MAX_HP        50
+#define STARTING_ELEMENTAL     4
+
+/* Per-item stack cap. Index = item ID, value = max EXTRA copies
+   allowed (not counting the 1 live copy in Section 1). */
+static const uint8_t ItemStackCap[INVENTORY_SECTION2_SIZE] = {
+    98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98,98
+};
+
+/* Custom sort order. Index = item ID, value = desired sort rank
+   (lower rank = appears earlier in the list). Fill this in to
+   group new healing/spell/key/wing items next to their existing
+   category-mates instead of raw ID order. Ranks don't need to be
+   contiguous — just consistently ordered relative to each other. */
+static const uint8_t ItemSortRank[INVENTORY_SECTION2_SIZE] = {
+    4,1,2,3,8,5,6,7,12,13,14,15,16,17,19,20,21,22,23,24,26,27,28,29,30,31,11,9,10,32,25,18
+};
+
+/* ---- Helper accessors ---- */
+
+static inline uint8_t* Section1Base(void) {
+    return (uint8_t*)INVENTORY_SECTION1_START;
+}
+
+static inline uint8_t* Section2Base(void) {
+    return (uint8_t*)INVENTORY_SECTION2_START;
+}
+
+void InventoryStackingTick(void) {
+}
+
+
+
 extern Gfx* gMasterGfxPos;
 
 f32 hpNightMultiplier = 1.5f;
@@ -604,6 +665,7 @@ void func_800074A0_Hook(PlayerData* arg0, unkStruct3* arg1) {
 
 void mainCFunction(void) { //ran every frame
     SetCurrentBossesBeaten();
+
 
     //change attack
     ChangeBrianFireSpells();
@@ -3033,6 +3095,166 @@ if (gCurrentMap == 0x10) {
 				}
 			}
 		}
+
+	
+	
+InventoryStackingTick();
+
+void InventoryStackingTick(void) {
+	    if (*(unsigned short*)GAME_STATE_ADDR == GAME_STATE_TITLE) {
+        uint8_t* qty = Section2Base();
+        for (int i = 0; i < MAX_VALID_ITEM_ID; i++) {
+            qty[i] = 0;
+        }
+        return; /* nothing else to do this frame */
+		}
+    uint8_t* list = Section1Base();
+    uint8_t* qty  = Section2Base();
+
+    
+uint8_t seen[INVENTORY_SECTION2_SIZE];
+for (int i = 0; i < INVENTORY_SECTION2_SIZE; i++) {
+    seen[i] = 0;
+}
+
+    int liveCount = 0;
+    uint8_t* base = Section1Base();
+
+    /* Detect + undo native block-shift drift. If slot 74 isn't the
+       terminator, an item-use event dragged the whole 150-byte block
+       (including Section 2) left by 1. Shift the affected range back
+       right by 1 to restore alignment, then re-plant the terminator
+       so leaked quantity data never reaches live Section 1 entries. */
+if (base[74] != ITEM_LIST_END) {
+    for (int i = 74 + MAX_VALID_ITEM_ID; i > 74; i--) {
+        base[i] = base[i - 1];
+    }
+    base[74] = ITEM_LIST_END;
+}
+
+
+    /* ...rest of existing function (Pass 1, Pass 2, Pass 3) unchanged below... */
+    /* ---- Pass 1: scan, detect + resolve duplicates ---- */
+    for (int i = 0; i < INVENTORY_SECTION1_SIZE; i++) {
+        uint8_t id = list[i];
+
+        if (id == ITEM_LIST_END) {
+            break; /* end of live list */
+        }
+
+        if (seen[id]) {
+            /* Duplicate found — this happens after a stacking pickup,
+               since native insert logic drops the new copy at the end
+               of the list. Merge it: delete this entry, bump quantity. */
+            uint8_t currentExtra = qty[id] & QTY_VALUE_MASK;
+            uint8_t cap = ItemStackCap[id];
+
+            if (currentExtra < cap) {
+                qty[id] = QTY_FLAG_BIT | (currentExtra + 1);
+            }
+            /* If already at cap, the "extra" pickup is simply discarded
+               by virtue of being deleted here without incrementing. */
+
+            /* Delete this slot by shifting everything after it left by 1. */
+            for (int j = i; j < INVENTORY_SECTION1_SIZE - 1; j++) {
+                list[j] = list[j + 1];
+            }
+            list[INVENTORY_SECTION1_SIZE - 1] = ITEM_LIST_END;
+
+            i--; /* re-check this index since a new value just shifted into it */
+            continue;
+        }
+
+        seen[id] = 1;
+        liveCount++;
+
+        /* First time this item type has been seen live — make sure its
+           quantity byte at least has the "ever owned" flag set. */
+        if (!(qty[id] & QTY_FLAG_BIT)) {
+            qty[id] = QTY_FLAG_BIT;
+        }
+    }
+
+    /* ---- Pass 2: restock items that were fully used ----
+       For any item ID whose quantity byte shows extra copies remaining
+       but which is NOT currently present in Section 1, native use-logic
+       must have just consumed the live copy. Restock one and decrement. */
+	   for (int id = 0; id < MAX_VALID_ITEM_ID; id++) {
+    if (qty[id] == 0xFF) {
+        qty[id] = 0; /* treat as invalid/uninitialized, not a real value */
+        continue;
+    }
+    uint8_t extra = qty[id] & QTY_VALUE_MASK;
+    /* ... rest of Pass 2 unchanged ... */
+}
+    for (int id = 0; id < INVENTORY_SECTION2_SIZE; id++) {
+        uint8_t extra = qty[id] & QTY_VALUE_MASK;
+
+        if (extra > 0 && !seen[id]) {
+            /* Find first empty slot and restock. */
+            for (int i = 0; i < INVENTORY_SECTION1_SIZE; i++) {
+                if (list[i] == ITEM_LIST_END) {
+                    list[i] = (uint8_t)id;
+                    liveCount++;
+                    qty[id] = QTY_FLAG_BIT | (extra - 1);
+                    break;
+                }
+            }
+        }
+        /* If extra == 0, quantity byte stays at exactly QTY_FLAG_BIT —
+           permanent "ever owned" flag, no live copies, nothing to do. */
+    }
+
+    /* ---- Pass 3: sort live entries by custom rank ---- */
+    /* Simple insertion sort — liveCount is small (~31 max), no need
+       for anything fancier. */
+    for (int i = 1; i < liveCount; i++) {
+        uint8_t key = list[i];
+        uint8_t keyRank = ItemSortRank[key];
+        int j = i - 1;
+        while (j >= 0 && ItemSortRank[list[j]] > keyRank) {
+            list[j + 1] = list[j];
+            j--;
+        }
+        list[j + 1] = key;
+    }
+}
+
+InventoryStackingTick();
+
+/* ---- Dynamic Strength  ---- */
+{
+    u16 currentMaxHP   = *(volatile u16*)ADDR_CURRENT_MAX_HP;
+	u8 fireLevel  = *(volatile u8*)ADDR_ELEMENTAL_FIRE;
+	u8 earthLevel = *(volatile u8*)ADDR_ELEMENTAL_EARTH;
+	u8 waterLevel = *(volatile u8*)ADDR_ELEMENTAL_WATER;
+	u8 windLevel  = *(volatile u8*)ADDR_ELEMENTAL_WIND;
+	u16 elementalTotal = (u16)fireLevel + earthLevel + waterLevel + windLevel;
+
+    u16 hpGrowth   = (currentMaxHP   > STARTING_MAX_HP)    ? (currentMaxHP   - STARTING_MAX_HP)    : 0;
+	u16 elemGrowth = (elementalTotal > STARTING_ELEMENTAL) ? (elementalTotal - STARTING_ELEMENTAL) : 0;
+
+    u32 hpContrib   = ((u32)hpGrowth   * HP_WEIGHT_X100)   / (999 - STARTING_MAX_HP)    / 100;
+    u32 elemContrib = ((u32)elemGrowth * ELEM_WEIGHT_X100) / (600 - STARTING_ELEMENTAL) / 100;
+
+    u32 baseCalc = BASE_STRENGTH + hpContrib + elemContrib;
+    if (baseCalc > 0xFF) baseCalc = 0xFF;
+    u8 base = (u8)baseCalc;
+
+    u32 up1Calc = ((u32)base * 3) / 2;
+    if (up1Calc > 0xFF) up1Calc = 0xFF;
+    u8 up1 = (u8)up1Calc;
+
+    u32 up2Calc = (u32)base * 2;
+    if (up2Calc > 0xFF) up2Calc = 0xFF;
+    u8 up2 = (u8)up2Calc;
+
+    *(volatile u8*)ADDR_LDA_BASE     = base;
+    *(volatile u8*)ADDR_LDA_ATK_UP_1 = up1;
+    *(volatile u8*)ADDR_LDA_ATK_UP_2 = up2;
+    *(volatile u8*)ADDR_LDA_DISPEL   = base;
+    *(volatile u8*)ADDR_LDA_WEAR_OFF = base;
+}
 
 	
 //	void clean_inventory(void)
