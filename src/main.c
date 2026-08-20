@@ -22,7 +22,7 @@ typedef unsigned char uint8_t;
 #define ITEM_LIST_END              0xFF
 #define QTY_FLAG_BIT               0x80
 #define QTY_VALUE_MASK             0x7F
-
+#define QUANTITY_DISPLAY_COUNT (sizeof(QuantityDisplayTable) / sizeof(QuantityDisplayTable[0]))
 #define ADDR_LDA_BASE       0x80003AE7  /*  Base ATK set (native 0x10) */
 #define ADDR_LDA_ATK_UP_1   0x8001712B  /*  Atk Up 1 set (native 0x18) */
 #define ADDR_LDA_ATK_UP_2   0x8001713F  /*  Atk Up 2 set (native 0x20) */
@@ -39,6 +39,13 @@ typedef unsigned char uint8_t;
 #define BASE_STRENGTH     0x10
 #define STARTING_MAX_HP        50
 #define STARTING_ELEMENTAL     4
+#define ITEM_ID_WING_1   0x0E  /* White */
+#define ITEM_ID_WING_2   0x0F  /* Yellow */
+#define ITEM_ID_WING_3   0x10  /* Blue */
+#define ITEM_ID_WING_4   0x11  /* Green */
+#define ITEM_ID_WING_5   0x12  /* Red */
+#define ITEM_ID_WING_6   0x13  /* Black */
+#define ITEM_ID_WING_7   0x1E  /* Coral */
 
 /* Per-item stack cap. Index = item ID, value = max EXTRA copies
    allowed (not counting the 1 live copy in Section 1). */
@@ -68,7 +75,73 @@ static inline uint8_t* Section2Base(void) {
 void InventoryStackingTick(void) {
 }
 
+typedef struct {
+    u8  itemId;
+    u32 tensAddr;
+    u32 onesAddr;
+} QuantityDisplaySlot;
 
+static const QuantityDisplaySlot QuantityDisplayTable[] = {
+    { /* item */ 0x00, /* tens */ 0x803a93D2, /* ones */ 0x803a93D3 }, /* Spirit Light */
+    { /* item */ 0x01, /* tens */ 0x803a9417, /* ones */ 0x803a9418 }, /* Baked Bread */
+    { /* item */ 0x02, /* tens */ 0x803a945A, /* ones */ 0x803a945B }, /* Honey Bread */
+    { /* item */ 0x03, /* tens */ 0x803a94A0, /* ones */ 0x803a94A1 }, /* Celtland Potion */
+    { /* item */ 0x04, /* tens */ 0x803a94E9, /* ones */ 0x803a94EA }, /* Dragon's Potion */
+    { /* item */ 0x05, /* tens */ 0x803a952B, /* ones */ 0x803a952C }, /* Dew Drop */
+    { /* item */ 0x06, /* tens */ 0x803a9574, /* ones */ 0x803a9575 }, /* Mint Leaves */
+    { /* item */ 0x07, /* tens */ 0x803a95B9, /* ones */ 0x803a95BA }, /* Heroes Drink */
+    { /* item */ 0x1A, /* tens */ 0x800c02CE, /* ones */ 0x800c02CF }, /* Secret Potion */
+    { /* item */ 0x1B, /* tens */ 0x800c031E, /* ones */ 0x800c031F }, /* Healing Brew */
+    { /* item */ 0x1C, /* tens */ 0x800c0369, /* ones */ 0x800c036A }, /* Tonic */
+    { /* item */ 0x08, /* tens */ 0x803a95F4, /* ones */ 0x803a95F5 }, /* Silent Flute */
+    { /* item */ 0x09, /* tens */ 0x803a9630, /* ones */ 0x803a9631 }, /* Celines Bell */
+    { /* item */ 0x0A, /* tens */ 0x803a9659, /* ones */ 0x803a965A }, /* Replica */
+    { /* item */ 0x0B, /* tens */ 0x803a9694, /* ones */ 0x803a9695 }, /* Giant's Shoes */
+    { /* item */ 0x0C, /* tens */ 0x803a96CC, /* ones */ 0x803a96CD }, /* Magic Amulet */
+    { /* item */ 0x0D, /* tens */ 0x803a9704, /* ones */ 0x803a9705 }, /* Spirit Amulet */
+    { /* item */ 0x1F, /* tens */ 0x800c0444, /* ones */ 0x800c0445 }, /* Magic Source */
+};
+
+static void UpdateItemQuantityDisplays(void)
+{
+    u8 i;
+ 
+    for (i = 0; i < QUANTITY_DISPLAY_COUNT; i++) {
+        u8 itemId = QuantityDisplayTable[i].itemId;
+ 
+        /* Bit 7 is a flag, not part of the quantity. Stored value
+           is (real quantity - 1), so 0x00 stored means 1 held. */
+        u8 rawQty = *(volatile u8*)(INVENTORY_SECTION2_START + itemId) & QTY_VALUE_MASK;
+        u8 qty    = rawQty + 1;
+ 
+        u8 tens = qty / 10;
+        u8 ones = qty % 10;
+ 
+        *(volatile u8*)QuantityDisplayTable[i].tensAddr = tens;
+        *(volatile u8*)QuantityDisplayTable[i].onesAddr = ones;
+    }
+}
+
+static void RefillWings(void)
+{
+    volatile u8 *wing1 = (volatile u8*)(INVENTORY_SECTION2_START + ITEM_ID_WING_1);
+    volatile u8 *wing2 = (volatile u8*)(INVENTORY_SECTION2_START + ITEM_ID_WING_2);
+	volatile u8 *wing3 = (volatile u8*)(INVENTORY_SECTION2_START + ITEM_ID_WING_3);
+    volatile u8 *wing4 = (volatile u8*)(INVENTORY_SECTION2_START + ITEM_ID_WING_4);
+	volatile u8 *wing5 = (volatile u8*)(INVENTORY_SECTION2_START + ITEM_ID_WING_5);
+    volatile u8 *wing6 = (volatile u8*)(INVENTORY_SECTION2_START + ITEM_ID_WING_6);
+	volatile u8 *wing7 = (volatile u8*)(INVENTORY_SECTION2_START + ITEM_ID_WING_7);
+ 
+ 
+    if (*wing1 == 0x80) { *wing1 = 0x81; }
+    if (*wing2 == 0x80) { *wing2 = 0x81; }
+	if (*wing3 == 0x80) { *wing3 = 0x81; }
+    if (*wing4 == 0x80) { *wing4 = 0x81; }
+	if (*wing5 == 0x80) { *wing5 = 0x81; }
+    if (*wing6 == 0x80) { *wing6 = 0x81; }
+	if (*wing7 == 0x80) { *wing7 = 0x81; }
+}
+ 
 
 extern Gfx* gMasterGfxPos;
 
@@ -113,6 +186,7 @@ s32 CheckNonRemovableItem(void) {
     }
     return 0;
 }
+
 
 //0x8007BA74 spawns a speech bubble when set to 0x00000010
 //0x8007BA90 exp gain
@@ -3255,8 +3329,42 @@ InventoryStackingTick();
     *(volatile u8*)ADDR_LDA_DISPEL   = base;
     *(volatile u8*)ADDR_LDA_WEAR_OFF = base;
 }
+UpdateItemQuantityDisplays();
+RefillWings();
 
-	
+//No MP Walk Heal in dungeons
+
+	if (gCurrentMap == gExitMap) {
+    gMPWalkHeal = 0;
+	} 
+	else {
+    gMPWalkHeal = 1;
+}
+
+//Shannon Dialogue - Days Elapsed
+if (gCurrentMap == 0x1E && gNextSubmap == 0x0D) {
+    if (gInvBook == 0x80) {
+        gShannonX = 0xC7C35000;  // placeholder: far out-of-bounds float bit-pattern
+        gShannonY = 0xC7C35000;
+        gBartX    = 0xC7C35000;
+        gBartY    = 0xC7C35000;
+    } else if (gInvBook == 0x00) {
+        gShannonX = 0xC1880000;  // inbounds location
+        gShannonY = 0xC2a80000;
+        gBartX    = 0xC1880000;
+        gBartY    = 0xC2c80000;
+        if (gameday <= 1) {
+            eShannonCastletext = 0xFF00;
+        } else if (gameday >= 1 && gameday <= 7) {
+            eShannonCastletext = 0xFE00;
+        } else if (gameday >= 7 && gameday <= 30) {
+            eShannonCastletext = 0x0A40;
+        } else if (gameday >= 31){
+            eShannonCastletext = 0xFD00;
+        }
+    }
+}
+
 //	void clean_inventory(void)
 //{
 //    u8 *ptr = &sInventory;

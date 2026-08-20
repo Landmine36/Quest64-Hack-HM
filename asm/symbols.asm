@@ -4,6 +4,8 @@
 .definelabel gBGMDelay, 0x8008FCC4
 .definelabel gCurrentMap, 0x80084EE4
 .definelabel gNextSubmap, 0x80084EE8
+.definelabel gExitMap, 0x80084f04
+.definelabel gMPWalkHeal, 0x8000385A
 .definelabel D_80053B00, 0x80053B00
 .definelabel bossFlags, 0x8007D19C
 .definelabel gTex_HUD_and_Menu, 0x803A6F40
@@ -82,6 +84,7 @@
 //data
 .definelabel gInventory, 0x8008cf78
 .definelabel sInventory, 0x8008CF78
+.definelabel gInvBook, 0x8008cfdb
 .definelabel gToggleOn,0x800869f9
 .definelabel gDamageNumbers, 0x800873e4
 .definelabel gDamageColor, 0x8004cfa4
@@ -116,8 +119,8 @@
 .definelabel gElementReset, 0x800869FE
 .definelabel gSpiritflagforest, 0x80086AF0
 .definelabel gBossFlags, 0x8007D19C
-.definelabel gametime, 0x800859E0
-.definelabel gameday, 0x800859E2
+.definelabel gametime, 0x800859E2
+.definelabel gameday, 0x800859E0
 .definelabel cbuttonpressed, 0x80092876
 .definelabel eKellytext, 0x8013DA1A
 .definelabel eFloratext, 0x801A3D5A
@@ -140,6 +143,7 @@
 .definelabel eRoachtext, 0x8018343c
 .definelabel eBronzetext, 0x8018cf3E
 .definelabel eMariontext, 0x80183202
+.definelabel eShannonCastletext, 0x80152b88
 .definelabel eTextlookup, 0x8009067C
 .definelabel eTextopen, 0x800905C0
 .definelabel eTextID, 0x800905E0
@@ -401,6 +405,10 @@
 .definelabel sFargoLocation, 0x803a9b30
 .definelabel sGuiltyLocation, 0x803a9b48
 .definelabel sBeigisLocation, 0x803a9b60
+.definelabel gBartX, 0x8007bdc8
+.definelabel gBartY, 0x8007bdd0
+.definelabel gShannonX, 0x8007bd44
+.definelabel gShannonY, 0x8007bd4c
 .definelabel sSolvaringFlag, 0x803A9AD4
 .definelabel sZelseFlag, 0x803a9aec
 .definelabel sNeptyFlag, 0x803a9b04

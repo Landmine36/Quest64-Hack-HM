@@ -95,6 +95,29 @@ void ChangeBrianFireSpells(void) {
 		SpellTablePointersBrian[FIRE][7].damage_base = 12;	
 	}
 	//Fire Pillar
+	if (gPlayerData.elements.water >= 15) {
+		SpellTablePointersBrian[FIRE][8].size = 12.0f;
+	}
+	if (gPlayerData.elements.water >= 30) {
+		SpellTablePointersBrian[FIRE][8].size = 16.0f;
+	}
+	if (gPlayerData.elements.fire >= 50) {
+		SpellTablePointersBrian[FIRE][8].damage_base = 1000;
+	}
+	if (gPlayerData.elements.fire >= 70) {
+		SpellTablePointersBrian[FIRE][8].attackCount = 2;
+		SpellTablePointersBrian[FIRE][8].damage_base = 1000;
+	}
+	if (gPlayerData.elements.fire >= 100) {
+		SpellTablePointersBrian[FIRE][8].attackCount = 3;
+		SpellTablePointersBrian[FIRE][8].damage_base = 1000;
+	}
+	if (gPlayerData.elements.fire >= 130) {
+		SpellTablePointersBrian[FIRE][8].damage_base = 1200;
+	}
+	if (gPlayerData.elements.fire >= 150) {
+		SpellTablePointersBrian[FIRE][8].damage_base = 1400;
+	}
 	//Searing Missile
 	if (gPlayerData.elements.wind == 1) {
 		SpellTablePointersBrian[FIRE][9].attackCount = 10;	
