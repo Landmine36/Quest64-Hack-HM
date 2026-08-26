@@ -150,6 +150,8 @@ f32 defNightMultiplier = 1.5f;
 f32 agiNightMultiplier = 1.5f;
 f32 atkNightMultiplier = 1.5f;
 f32 powNightMultiplier = 1.5f;
+f32 expNightMultiplier = 2.0f;
+f32 moneyNightMultiplier = 2.0;
 
 s32 itemIdChosen = -1;
 s32 itemIdChosenCopy = -1;
@@ -1174,16 +1176,18 @@ void mainCFunction(void) { //ran every frame
 		}
 		
 		if (gEventflag13 & 128) {
-			if ((gCurrentMap == 0 && (gNextSubmap == 3))|(gCurrentMap == 2)|(gCurrentMap == 3)|(gCurrentMap == 5)|(gCurrentMap == 7)|(gCurrentMap == 8 && (gNextSubmap == 0))|(gCurrentMap == 9)|(gCurrentMap == 10)|(gCurrentMap == 12)|(gCurrentMap == 14 && (gNextSubmap == 1))|(gCurrentMap == 19)|(gCurrentMap == 23)|(gCurrentMap == 26 && (!(gNextSubmap == 3)))|(gCurrentMap == 27)|(gCurrentMap == 28)|(gCurrentMap == 29)|(gCurrentMap == 30)|(gCurrentMap == 31)|(gCurrentMap == 32)|(gCurrentMap == 32 && (!(gNextSubmap == 1)))|(gCurrentMap == 33)|(gCurrentMap == 34)|(gCurrentMap == 35)) {
-				gEventBossRead = 0x69F3;
-				gEventBossWrite = 0x69F3;
+			if ((gNextMap == 0 && (gNextSMap == 3))|(gNextMap == 2)|(gNextMap == 3)|(gNextMap == 5)|(gNextMap == 7)|(gNextMap == 8 && (gNextSMap == 0))|(gNextMap == 9)|(gNextMap == 10)|(gNextMap == 12)|(gNextMap == 14 && (gNextSMap == 1))|(gNextMap == 19)|(gNextMap == 23)|(gNextMap == 26 && (!(gNextSMap == 3)))|(gNextMap == 27)|(gNextMap == 28)|(gNextMap == 29)|(gNextMap == 30)|(gNextMap == 31)|(gNextMap == 32)|(gNextMap == 32 && (!(gNextSMap == 1)))|(gNextMap == 33)|(gNextMap == 34)|(gNextMap == 35)) {
+			gEventflag13 |= 64;
+			//				gEventBossRead = 0x69F3;
+//				gEventBossWrite = 0x69F3;
 //				gEventBossRRead = 0x69F3;
 //				gEventBossRWrite = 0x69F3;
 			}
 //			else if (!(gCurrentMap == 26|gCurrentMap == 31|gCurrentMap == 35|gCurrentMap == 12)) {
-			else if (!(gCurrentMap == 0 && (!(gNextSubmap == 3)))|(gCurrentMap == 2)|(gCurrentMap == 3)|(gCurrentMap == 5)|(gCurrentMap == 7)|(gCurrentMap == 8 && (!(gNextSubmap == 0)))|(gCurrentMap == 9)|(gCurrentMap == 10)|(gCurrentMap == 12)|(gCurrentMap == 14 && (!(gNextSubmap == 1)))|(gCurrentMap == 19)|(gCurrentMap == 23)|(gCurrentMap == 26 && (!(gNextSubmap == 3)))|(gCurrentMap == 27)|(gCurrentMap == 28)|(gCurrentMap == 29)|(gCurrentMap == 30)|(gCurrentMap == 31)|(gCurrentMap == 32)|(gCurrentMap == 32 && (!(gNextSubmap == 1)))|(gCurrentMap == 33)|(gCurrentMap == 34)|(gCurrentMap == 35)) {
-				gEventBossRead = 0xD19C;
-				gEventBossWrite = 0xD19C;
+			else if (!(gNextMap == 0 && (!(gNextSMap == 3)))|(gNextMap == 2)|(gNextMap == 3)|(gNextMap == 5)|(gNextMap == 7)|(gNextMap == 8 && (!(gNextSMap == 0)))|(gNextMap == 9)|(gNextMap == 10)|(gNextMap == 12)|(gNextMap == 14 && (!(gNextSMap == 1)))|(gNextMap == 19)|(gNextMap == 23)|(gNextMap == 26 && (!(gNextSMap == 3)))|(gNextMap == 27)|(gNextMap == 28)|(gNextMap == 29)|(gNextMap == 30)|(gNextMap == 31)|(gNextMap == 32)|(gNextMap == 32 && (!(gNextSMap == 1)))|(gNextMap == 33)|(gNextMap == 34)|(gNextMap == 35)) {
+			gEventflag13 &= ~64;
+			//				gEventBossRead = 0xD19C;
+//				gEventBossWrite = 0xD19C;
 //				gEventBossRRead = 0xD19C;
 //				gEventBossRWrite = 0xD19C;
 			}
@@ -1502,7 +1506,7 @@ void mainCFunction(void) { //ran every frame
 	}
 	
 	
-	
+	/*
 		if (gEventflag15 & 1){
 			if (sHPEXPM == 1){
 				sHPEXPM = 2;
@@ -1549,6 +1553,7 @@ void mainCFunction(void) { //ran every frame
 				sBAGIEXPM = 1;
 			}
 		}
+		*/
 //// End
 
 	//MaxHP/MP Bugfix
@@ -2807,9 +2812,9 @@ void mainCFunction(void) { //ran every frame
 	if (gSpellCast == 0x00000309) {
 			if ((gEncounterFlag & 1) == 0x01){
 					if (gSpellTimer == 0x00040000){
-						gEncounterFloat = 0x49;
-						gEncounterStep = 0x32;
-						gEncounterMax = 0x07D0;
+//						gEncounterFloat = 0x49;
+//						gEncounterStep = 0x32;
+//						gEncounterMax = 0x07D0;
 						gEncounterFlag = 0x00;
 						gSoftSteps = 0x00400002;
 						gSpellTimer = gSpellTimer - 0x00030000;
@@ -2818,9 +2823,9 @@ void mainCFunction(void) { //ran every frame
 			
 			else if ((gEncounterFlag & 1) == 0x00){
 					if (gSpellTimer == 0x00030000){
-						gEncounterFloat = 0x59;
-						gEncounterStep = 0x64;
-						gEncounterMax = 0x0FA0;
+//						gEncounterFloat = 0x59;
+//						gEncounterStep = 0x64;
+//						gEncounterMax = 0x0FA0;
 						gEncounterFlag = 0x01;
 						gSoftSteps = 0x00400004;
 						gSpellTimer = gSpellTimer - 0x00020000;

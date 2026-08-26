@@ -615,9 +615,257 @@ enemySetOtherStatsHook:
     J 0x80009248
     NOP
 
+myExpRewardHook:
+    LW t7, 0x0010 (t6)        //stolen instruction 1
 
+    //kill counter increment (clamped at 65535)
+    LI t8, gKillCount
+    LHU t9, 0x0000 (t8)
+    ADDIU at, r0, 0xFFFF
+    BEQ t9, at, skipKillIncrement
+    NOP
+    ADDIU t9, t9, 1
+    SH t9, 0x0000 (t8)
+    skipKillIncrement:
+    LI t8, gBattleState
+    LHU t8, 0x0000 (t8)
+    ANDI t8, t8, 0x0100
+    BNEZ t8, notNightExp       //boss fight, skip bonus entirely
+    NOP
+    JAL checkIfNight
+    NOP
+    BEQZ v0, notNightExp
+    NOP
+    LI at, expNightMultiplier
+    LWC1 f6, 0x0000 (at)
+    MTC1 t7, f8
+    CVT.S.W f8, f8
+    MUL.S f8, f8, f6
+    CVT.W.S f8, f8
+    MFC1 t7, f8
+    notNightExp:
+    ADDIU a3, a3, 0xBA6C       //stolen instruction 2 (delay slot)
+    J 0x800098DC
+    NOP
 
+myMoneyRewardHook:
+    LW t1, 0x0014 (t0)        //stolen instruction 1
+    LI t8, gBattleState
+    LHU t8, 0x0000 (t8)
+    ANDI t8, t8, 0x0100
+    BNEZ t8, notNightMoney     //boss fight, skip bonus entirely
+    NOP
+    JAL checkIfNight
+    NOP
+    BEQZ v0, notNightMoney
+    NOP
+    LI at, moneyNightMultiplier
+    LWC1 f6, 0x0000 (at)
+    MTC1 t1, f8
+    CVT.S.W f8, f8
+    MUL.S f8, f8, f6
+    CVT.W.S f8, f8
+    MFC1 t1, f8
+    notNightMoney:
+    ADDIU a2, r0, 0x00FF       //stolen instruction 2 (delay slot)
+    J 0x800098FC
+    NOP
 
+myHPExpMultHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gEventflag15
+    LBU   at, 0x0000 (at)
+    ANDI  at, at, 0x0001
+    BEQZ  at, hpExpNormal
+    LW    at, 0x0000 (SP)      //delay slot: restore AT, safe (branch already decided)
+    ADDIU t9, t8, 0x0002
+    B     hpExpDone
+    NOP
+    hpExpNormal:
+    ADDIU t9, t8, 0x0001
+    hpExpDone:
+    ADDIU SP, SP, 4
+    SH    t9, 0x0028 (t7)
+    J     0x80006EA4
+    NOP
+
+mySHPExpMultHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gEventflag15
+    LBU   at, 0x0000 (at)
+    ANDI  at, at, 0x0001
+    BEQZ  at, shpExpNormal
+    LW    at, 0x0000 (SP)
+    ADDIU t3, t2, 0x0002
+    B     shpExpDone
+    NOP
+    shpExpNormal:
+    ADDIU t3, t2, 0x0001
+    shpExpDone:
+    ADDIU SP, SP, 4
+	SH    t3, 0x0028 (v0)
+    J     0x800045AC
+    NOP
+
+myMPExpMultHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gEventflag15
+    LBU   at, 0x0000 (at)
+    ANDI  at, at, 0x0002
+    BEQZ  at, mpExpNormal
+    LW    at, 0x0000 (SP)
+    ADDIU t4, t3, 0x0002
+    B     mpExpDone
+    NOP
+    mpExpNormal:
+    ADDIU t4, t3, 0x0001
+    mpExpDone:
+    ADDIU SP, SP, 4
+	SH    t4, 0x002A (v0)
+	J     0x800165D0        
+    NOP
+
+myHMPExpMultHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gEventflag15
+    LBU   at, 0x0000 (at)
+    ANDI  at, at, 0x0002
+    BEQZ  at, hmpExpNormal
+    LW    at, 0x0000 (SP)
+    ADDIU t9, t8, 0x0002
+    B     hmpExpDone
+    NOP
+    hmpExpNormal:
+    ADDIU t9, t8, 0x0001
+    hmpExpDone:
+    ADDIU SP, SP, 4
+    SH    t9, 0x002A (v0)
+    J     0x80016778
+    NOP
+
+myDEFExpMultHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gEventflag15
+    LBU   at, 0x0000 (at)
+    ANDI  at, at, 0x0004
+    BEQZ  at, defExpNormal
+    LW    at, 0x0000 (SP)
+    ADDIU t2, t1, 0x0002
+    B     defExpDone
+    NOP
+    defExpNormal:
+    ADDIU t2, t1, 0x0001
+    defExpDone:
+    ADDIU SP, SP, 4
+    SH    t2, 0x002E (t0)
+    J     0x80006EB4
+    NOP
+
+myBAGIExpMultHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gEventflag15
+    LBU   at, 0x0000 (at)
+    ANDI  at, at, 0x0008
+    BEQZ  at, bagiExpNormal
+    LW    at, 0x0000 (SP)
+    ADDIU t9, t8, 0x0002
+    B     bagiExpDone
+    NOP
+    bagiExpNormal:
+    ADDIU t9, t8, 0x0001
+    bagiExpDone:
+    ADDIU SP, SP, 4
+    SH    t9, 0x002C (v0)
+    J     0x80007478
+    NOP
+
+myBossReadHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gEventflag13
+    LBU   at, 0x0000 (at)
+    ANDI  at, at, 0x0040
+    BEQZ  at, bossReadNormal
+    LW    at, 0x0000 (SP)
+    ADDIU t9, t9, 0x69F3
+    LBU   t9, 0x0000 (t9)
+    B     bossReadDone
+    NOP
+    bossReadNormal:
+    LBU   t9, 0xD19C (t9)
+    bossReadDone:
+    ADDIU SP, SP, 4
+    AND   v0, t7, t9
+    J     0x8000B9FC
+    NOP
+
+myBossWriteHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gEventflag13
+    LBU   at, 0x0000 (at)
+    ANDI  at, at, 0x0040
+    BEQZ  at, bossWriteNormal
+    LW    at, 0x0000 (SP)
+    ADDIU t8, t8, 0x69F3
+    B     bossWriteDone
+    NOP
+    bossWriteNormal:
+    ADDIU t8, t8, 0xD19C
+    bossWriteDone:
+    ADDIU SP, SP, 4
+    SRA   t7, a0, 3
+    J     0x8000BA24
+    NOP
+	
+myEncounterFloatHook:
+    ADDIU SP, SP, -4
+    SW    t9, 0x0000 (SP)
+    LI    t9, gEncounterFlag
+    LBU   t9, 0x0000 (t9)
+    ANDI  t9, t9, 0x0001
+    BEQZ  t9, encFloatNormal
+    LW    t9, 0x0000 (SP)
+    ADDIU SP, SP, 4
+    LUI   at, 0x4059
+    MTC1  at, F19              
+    J     0x8001C658            
+    NOP
+    encFloatNormal:
+    ADDIU SP, SP, 4
+    LUI   at, 0x4049
+    MTC1  at, F19              
+    J     0x8001C658
+    NOP
+
+myEncounterMaxStepHook:
+    ADDIU SP, SP, -8
+    SW    t9, 0x0000 (SP)
+    SW    t0, 0x0004 (SP)
+    LI    t9, gEncounterFlag
+    LBU   t9, 0x0000 (t9)
+    ANDI  t9, t9, 0x0001
+    LW    t0, 0x0004 (SP)       
+    BEQZ  t9, encMaxStepNormal
+    LW    t9, 0x0000 (SP)      
+    ADDIU SP, SP, 8
+    ADDIU a0, r0, 0x0FA0
+    ADDIU t1, t0, 0x0064
+    J     0x8001C690
+    NOP
+    encMaxStepNormal:
+    ADDIU SP, SP, 8
+    ADDIU a0, r0, 0x07D0
+    ADDIU t1, t0, 0x0032
+    J     0x8001C690
+    NOP
+	
 //0x80022168
 
 //lui a1, 0x8009

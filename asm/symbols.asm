@@ -4,6 +4,8 @@
 .definelabel gBGMDelay, 0x8008FCC4
 .definelabel gCurrentMap, 0x80084EE4
 .definelabel gNextSubmap, 0x80084EE8
+.definelabel gNextMap, 0x80085368
+.definelabel gNextSMap, 0x8008536C
 .definelabel gExitMap, 0x80084f04
 .definelabel gMPWalkHeal, 0x8000385A
 .definelabel D_80053B00, 0x80053B00
@@ -92,6 +94,7 @@
 .definelabel gEncounterStep, 0x8001c68f
 .definelabel gEncounterMax, 0x8001c68a
 .definelabel gEncounterFlag, 0x800869f8
+.definelabel gKillCount, 0x800869f4
 .definelabel gAutoRevive, 0x800869f9
 .definelabel gSoftSteps, 0x800c2ea8
 .definelabel gSpellTimer, 0x8007bbd8

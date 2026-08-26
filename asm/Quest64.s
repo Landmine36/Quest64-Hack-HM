@@ -44,6 +44,54 @@ NOP
 NOP
 NOP
 
+.org 0x800098D4
+J myExpRewardHook
+NOP
+
+.org 0x800098F4
+J myMoneyRewardHook
+NOP
+
+.org 0x80006E9C
+J myHPExpMultHook
+NOP
+
+.org 0x80004574
+J mySHPExpMultHook
+NOP
+
+.org 0x800165B4
+J myMPExpMultHook
+NOP
+
+.org 0x80016770
+J myHMPExpMultHook
+NOP
+
+.org 0x80006EAC
+J myDEFExpMultHook
+NOP
+
+.org 0x80007470
+J myBAGIExpMultHook
+NOP
+
+.org 0x8000B9F4
+J myBossReadHook
+NOP
+
+.org 0x8000BA1C
+J myBossWriteHook
+NOP
+
+.org 0x8001C650
+J myEncounterFloatHook
+NOP
+
+.org 0x8001C688
+J myEncounterMaxStepHook
+NOP
+
 //.org 0x800212E4
 //J storeChosenItem
 //NOP

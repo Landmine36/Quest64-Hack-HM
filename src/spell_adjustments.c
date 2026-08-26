@@ -192,7 +192,16 @@ void ChangeBrianFireSpells(void) {
 	}
 	//Magma Ball
 	//Overload
-	//Replace 3
+	//Anathema
+	//Player/Brian
+	if (gPlayerData.elements.fire >= 1) {
+		SpellTablePointersBrian[FIRE][14].damage_base = (gKillCount / 3 > 2000) ? 2000 : gKillCount / 3;
+	}
+
+	//Enemy
+	if (gPlayerData.elements.fire >= 1) {
+		SpellTablePointers[FIRE][14].damage_base = (gKillCount > 2000) ? 2000 : gKillCount;
+	}
 }
 
 void ChangeBrianEarthSpells(void) {
