@@ -92,6 +92,30 @@ NOP
 J myEncounterMaxStepHook
 NOP
 
+.org 0x80003AE4
+J myBaseStrengthHook
+NOP
+
+.org 0x80017128
+J myAtkUp1Hook
+NOP
+
+.org 0x8001713C
+J myAtkUp2Hook
+NOP
+
+.org 0x80018194
+J myWearOffHook
+NOP
+
+.org 0x80016CF4
+J myDispelHook
+NOP
+
+.org 0x80003858
+J myDungeonMPHook
+NOP
+
 //.org 0x800212E4
 //J storeChosenItem
 //NOP

@@ -866,6 +866,89 @@ myEncounterMaxStepHook:
     J     0x8001C690
     NOP
 	
+myBaseStrengthHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gStrengthBase
+    LBU   t3, 0x0000 (at)
+    LW    at, 0x0000 (SP)
+    ADDIU SP, SP, 4
+    ADDU  t9, t7, t8             //stolen instruction 1 (independent)
+    SH    t9, 0x0104 (v0)         //stolen instruction 2 (uses our loaded value)
+    J     0x80003AF0
+    NOP
+	
+myAtkUp1Hook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gStrengthUp1
+    LBU   t9, 0x0000 (at)
+    LW    at, 0x0000 (SP)
+    ADDIU SP, SP, 4
+    LW    t1, 0x0068 (t0)      //stolen instruction
+    J     0x80017130
+    NOP
+	
+myAtkUp2Hook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gStrengthUp2
+    LBU   t2, 0x0000 (at)
+    LW    at, 0x0000 (SP)
+    ADDIU SP, SP, 4
+    SH    t2, 0x008A (t4)      //stolen instruction
+    J     0x80017144
+    NOP
+	
+myWearOffHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gStrengthBase
+    LBU   t0, 0x0000 (at)
+    LW    at, 0x0000 (SP)
+    ADDIU SP, SP, 4
+    ADDIU a3, r0, 0x000C        //stolen instruction
+    J     0x8001819C
+    NOP
+	
+myDispelHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gStrengthBase
+    LBU   t9, 0x0000 (at)
+    LW    at, 0x0000 (SP)
+    ADDIU SP, SP, 4
+    LUI   at, 0x3F80             //stolen instruction 1
+    SH    t9, 0x008A (t0)         //stolen instruction 2
+    J     0x80016D00
+    NOP
+	
+myDungeonMPHook:
+    ADDIU SP, SP, -8
+    SW    at, 0x0000 (SP)
+    SW    v1, 0x0004 (SP)
+    LI    at, gCurrentMap
+    LW    at, 0x0000 (at)
+    LI    v1, gExitMap
+    LW    v1, 0x0000 (v1)
+    BEQ   at, v1, dungeonMPZero
+    NOP
+    LW    at, 0x0000 (SP)
+    LW    v1, 0x0004 (SP)
+    ADDIU SP, SP, 8
+    ADDIU t9, t7, 0x0001        //not in dungeon — normal regen
+    SH    t9, 0x0008 (t6)
+    J     0x80003860
+    NOP
+    dungeonMPZero:
+    LW    at, 0x0000 (SP)
+    LW    v1, 0x0004 (SP)
+    ADDIU SP, SP, 8
+    ADDIU t9, t7, 0x0000        //in dungeon — no regen
+    SH    t9, 0x0008 (t6)
+    J     0x80003860
+    NOP	
+	
 //0x80022168
 
 //lui a1, 0x8009

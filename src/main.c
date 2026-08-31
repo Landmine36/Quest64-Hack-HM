@@ -313,9 +313,31 @@ void func_80029448_Hook(s32 arg0) {
         func_80029B58(0x33, arg0 + 0xA6, 0xAF, waterLevel, 3);
     }
 
-    
-
     {
+    s32 clampedLevel = gPlayerData.levels;
+    if (clampedLevel > 99) {
+        clampedLevel = 99;
+    }
+
+    s32 expToNextLevel = ExpTable[clampedLevel];
+    s32 playerExpToNextLevel = expToNextLevel - gPlayerData.curExp;
+
+    var_s0 = (gPlayerData.curExp * 100) / (u32) ExpTable[clampedLevel];
+    if (var_s0 > 100) {
+        var_s0 = 100;
+    }
+
+    func_8002A0B8(var_s0, arg0); //draw exp sphere
+
+    if (gPlayerData.curExp > ExpTable[clampedLevel]) {
+        func_8002AB64(6, arg0 + 0x7B, 0x92, 0, 0xA); //draw 0 exp
+    } else {
+        func_8002AB64(6, arg0 + 0x7B, 0x92, playerExpToNextLevel, 0xA);          
+    }
+}
+/*
+    {
+		
         s32 expToNextLevel = ExpTable[gPlayerData.levels];
         s32 playerExpToNextLevel = expToNextLevel - gPlayerData.curExp;
 
@@ -332,7 +354,7 @@ void func_80029448_Hook(s32 arg0) {
             func_8002AB64(6, arg0 + 0x7B, 0x92, playerExpToNextLevel, 0xA);          
         }
     }
-
+*/
     if (!(D_8008FD0C & 0x2000)) {
         if ((D_80092871 >= 0x15) || (D_80092876 & 0x10)) {
             D_8008FD04 = 0x140;
@@ -1355,12 +1377,12 @@ void mainCFunction(void) { //ran every frame
 	//Mammon Greed
 	if (gEventflag13 & 128){
 		if (gEventflag16 == 0x7F) {
-			if (!(sMammonMHP == 32000)){
-					sMammonMHP = 32000;
-					sMammonCHP = 32000;
-					sMammonDEF = 999;
-					sMammonAGI = 1500;
-					sMammonATK = 150;	
+			if (!(sMammonMHP == 32000 + (gKillCount / 2))){
+					sMammonMHP = 32000 + (gKillCount / 2);
+					sMammonCHP = 32000 + (gKillCount / 2);
+					sMammonDEF = 999 + (gKillCount / 500);
+					sMammonAGI = 1500 + (gKillCount / 250);
+					sMammonATK = 150 + (gKillCount / 4369);	
 					sMammonName = 0x8040ef52;	
 					sMammonBName = 0x8040ef98;	
 					sMammonText = 0x8040f800;	
@@ -1588,7 +1610,7 @@ void mainCFunction(void) { //ran every frame
 //Drain Attack Fix
 	if (gSpellCast == 0x00000006){
 			if (gSpellTimer == 0x00020000){
-				if (sATKStat <= 0x1D){
+				if (sATKStat == gStrengthBase){
 				sATKStat = sATKStat * 1.5;
 				gSpellTimer = 0x00010000;
 				}
@@ -3328,24 +3350,24 @@ InventoryStackingTick();
     if (up2Calc > 0xFF) up2Calc = 0xFF;
     u8 up2 = (u8)up2Calc;
 
-    *(volatile u8*)ADDR_LDA_BASE     = base;
-    *(volatile u8*)ADDR_LDA_ATK_UP_1 = up1;
-    *(volatile u8*)ADDR_LDA_ATK_UP_2 = up2;
-    *(volatile u8*)ADDR_LDA_DISPEL   = base;
-    *(volatile u8*)ADDR_LDA_WEAR_OFF = base;
+   gStrengthBase     = base;
+   gStrengthUp1      = up1;
+   gStrengthUp2      = up2;
+   gStrengthDispel   = base;
+   gStrengthWearOff  = base;
 }
 UpdateItemQuantityDisplays();
 RefillWings();
 
 //No MP Walk Heal in dungeons
 
-	if (gCurrentMap == gExitMap) {
+/*	if (gCurrentMap == gExitMap) {
     gMPWalkHeal = 0;
 	} 
 	else {
     gMPWalkHeal = 1;
 }
-
+*/
 //Shannon Dialogue - Days Elapsed
 if (gCurrentMap == 0x1E && gNextSubmap == 0x0D) {
     if (gInvBook == 0x80) {

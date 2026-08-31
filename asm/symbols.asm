@@ -84,6 +84,11 @@
 .definelabel _memcpy, 0x8003fb20
 
 //data
+.definelabel gStrengthBase,0x8007bba0
+.definelabel gStrengthUp1, 0x8007bba2
+.definelabel gStrengthUp2, 0x8007bba4
+.definelabel gStrengthDispel, 0x8007bba6
+.definelabel gStrengthWearOff, 0x8007bba8
 .definelabel gInventory, 0x8008cf78
 .definelabel sInventory, 0x8008CF78
 .definelabel gInvBook, 0x8008cfdb
