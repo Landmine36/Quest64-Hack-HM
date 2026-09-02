@@ -949,6 +949,29 @@ myDungeonMPHook:
     J     0x80003860
     NOP	
 	
+myEndingDialogueHook:
+    ADDIU SP, SP, -4
+    SW    at, 0x0000 (SP)
+    LI    at, gEventflag16
+    LBU   at, 0x0000 (at)
+    XORI  at, at, 0x00FF
+    BNEZ  at, endingNormal
+    LW    at, 0x0000 (SP)
+	ADDIU SP, SP, 4  
+    LUI   a1, 0x8005
+    JAL   0x80008AD8
+    ADDIU a1, a1, 0x4C04         //all-Sins ending
+    J     0x80007B4C
+    NOP
+    endingNormal:
+	ADDIU SP, SP, 4  
+    LUI   a1, 0x8005
+    JAL   0x80008AD8
+    ADDIU a1, a1, 0x4828         //normal ending
+    J     0x80007B4C
+    NOP	
+	
+	
 //0x80022168
 
 //lui a1, 0x8009

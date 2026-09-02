@@ -116,6 +116,12 @@ NOP
 J myDungeonMPHook
 NOP
 
+.org 0x80007B40
+J myEndingDialogueHook
+NOP
+NOP
+
+
 //.org 0x800212E4
 //J storeChosenItem
 //NOP

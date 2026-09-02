@@ -46,6 +46,29 @@ typedef unsigned char uint8_t;
 #define ITEM_ID_WING_5   0x12  /* Red */
 #define ITEM_ID_WING_6   0x13  /* Black */
 #define ITEM_ID_WING_7   0x1E  /* Coral */
+#define ADDR_KILL_COUNT        0x800869f4 
+#define ADDR_KILLS_DIGIT_1     0x800c03b2  /* TODO: ten-thousands */
+#define ADDR_KILLS_DIGIT_2     0x800c03b3  /* TODO: thousands */
+#define ADDR_KILLS_DIGIT_3     0x800c03b4  /* TODO: hundreds */
+#define ADDR_KILLS_DIGIT_4     0x800c03b5  /* TODO: tens */
+#define ADDR_KILLS_DIGIT_5     0x800c03b6  /* TODO: ones */
+#define Ending1	0x4828
+#define Ending2	0x4C04
+#define Spirits_Digit_1	0x80054e11
+#define Spirits_Digit_2	0x80054e12
+#define Spirits_Digit_3	0x80054e13
+#define Chests_Digit_1	0x80054e24
+#define Chests_Digit_2	0x80054e25
+#define Events_Digit_1	0x80054e3B
+#define Events_Digit_2	0x80054e3C
+#define SPIRIT_FLAGS_START     0x80086AE8
+#define SPIRIT_FLAGS_END       0x80086AF7
+#define CHEST_FLAGS_START      0x800869D8
+#define CHEST_FLAGS_END        0x800869E3 
+#define SIDEQUEST_BYTE_A        0x800869F3   /* bits 0,1,2,3,4 */
+#define SIDEQUEST_BYTE_B        0x800869F0   /* bit 0 */
+#define SIDEQUEST_BYTE_C        0x800869E4   /* bits 1,4,7 */
+#define SIDEQUEST_BYTE_D        0x800869E5 
 
 /* Per-item stack cap. Index = item ID, value = max EXTRA copies
    allowed (not counting the 1 live copy in Section 1). */
@@ -122,6 +145,23 @@ static void UpdateItemQuantityDisplays(void)
     }
 }
 
+static void UpdateKillCounterDisplay(void)
+{
+    u16 kills = *(volatile u16*)ADDR_KILL_COUNT;
+ 
+    u8 d1 = (kills / 10000) % 10; /* ten-thousands */
+    u8 d2 = (kills / 1000)  % 10; /* thousands */
+    u8 d3 = (kills / 100)   % 10; /* hundreds */
+    u8 d4 = (kills / 10)    % 10; /* tens */
+    u8 d5 = kills            % 10; /* ones */
+ 
+    *(volatile u8*)ADDR_KILLS_DIGIT_1 = d1;
+    *(volatile u8*)ADDR_KILLS_DIGIT_2 = d2;
+    *(volatile u8*)ADDR_KILLS_DIGIT_3 = d3;
+    *(volatile u8*)ADDR_KILLS_DIGIT_4 = d4;
+    *(volatile u8*)ADDR_KILLS_DIGIT_5 = d5;
+}
+
 static void RefillWings(void)
 {
     volatile u8 *wing1 = (volatile u8*)(INVENTORY_SECTION2_START + ITEM_ID_WING_1);
@@ -142,6 +182,68 @@ static void RefillWings(void)
 	if (*wing7 == 0x80) { *wing7 = 0x81; }
 }
  
+ static u8 CountSetBitsInRange(u32 startAddr, u32 endAddrInclusive)
+{
+    u8 count = 0;
+    u32 addr;
+ 
+    for (addr = startAddr; addr <= endAddrInclusive; addr++) {
+        u8 byte = *(volatile u8*)addr;
+        while (byte) {
+            count += (byte & 1);
+            byte >>= 1;
+        }
+    }
+ 
+    return count;
+}
+
+static u8 CountSideQuestsFinished(void)
+{
+    u8 count = 0;
+    u8 b;
+ 
+    b = *(volatile u8*)SIDEQUEST_BYTE_A;
+    count += (b >> 0) & 1;
+    count += (b >> 1) & 1;
+    count += (b >> 2) & 1;
+    count += (b >> 3) & 1;
+    count += (b >> 4) & 1;
+ 
+    b = *(volatile u8*)SIDEQUEST_BYTE_B;
+    count += (b >> 7) & 1;
+ 
+    b = *(volatile u8*)SIDEQUEST_BYTE_C;
+    count += (b >> 1) & 1;
+    count += (b >> 4) & 1;
+    count += (b >> 7) & 1;
+ 
+    b = *(volatile u8*)SIDEQUEST_BYTE_D;
+    count += (b >> 2) & 1;
+    count += (b >> 5) & 1;
+ 
+    return count;
+}
+
+static void UpdateEndingStatistics(void)
+{
+    u8 spirits    = CountSetBitsInRange(SPIRIT_FLAGS_START, SPIRIT_FLAGS_END);
+    u8 chests     = CountSetBitsInRange(CHEST_FLAGS_START, CHEST_FLAGS_END);
+    u8 sidequests = CountSideQuestsFinished();
+ 
+    /* Spirits: 3 digits */
+    *(volatile u8*)Spirits_Digit_1 = (spirits / 100) % 10;
+    *(volatile u8*)Spirits_Digit_2 = (spirits / 10)  % 10;
+    *(volatile u8*)Spirits_Digit_3 = spirits          % 10;
+ 
+    /* Chests: 2 digits */
+    *(volatile u8*)Chests_Digit_1 = (chests / 10) % 10;
+    *(volatile u8*)Chests_Digit_2 = chests          % 10;
+ 
+    /* Side quests: 2 digits */
+    *(volatile u8*)Events_Digit_1 = (sidequests / 10) % 10;
+    *(volatile u8*)Events_Digit_2 = sidequests          % 10;
+}
 
 extern Gfx* gMasterGfxPos;
 
@@ -1637,7 +1739,7 @@ void mainCFunction(void) { //ran every frame
      gDamageColor = 0x80008000;
 	}
 	if (gDamageNumbers == 0x00000005){
-		gDamageColor = 0x00000000;
+		gDamageColor = 0x4d4d4d00;
 	}
 //
 
@@ -3358,6 +3460,8 @@ InventoryStackingTick();
 }
 UpdateItemQuantityDisplays();
 RefillWings();
+UpdateKillCounterDisplay();
+UpdateEndingStatistics();
 
 //No MP Walk Heal in dungeons
 
