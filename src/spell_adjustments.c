@@ -34,16 +34,16 @@ void ChangeBrianFireSpells(void) {
     }		
 //Enemy
     if (gCurrentMap == 0x02 || gCurrentMap == 0x1F){
-	SpellTablePointersBrian[FIRE][0].attackCount = 1;
+	SpellTablePointers[FIRE][0].attackCount = 1;
     }
     if (gCurrentMap == 0x03 || gCurrentMap == 0x20 || gCurrentMap == 0x05 || gCurrentMap == 0x1B){
-	SpellTablePointersBrian[FIRE][0].attackCount = 2;
+	SpellTablePointers[FIRE][0].attackCount = 2;
     }
     if (gCurrentMap == 0x21 || gCurrentMap == 0x1A || gCurrentMap == 0x0C || gCurrentMap == 0x07 || gCurrentMap == 0x1C){
-	SpellTablePointersBrian[FIRE][0].attackCount = 3;
+	SpellTablePointers[FIRE][0].attackCount = 3;
     }
     if (gCurrentMap == 0x09 || gCurrentMap == 0x1D || gCurrentMap == 0x0B || gCurrentMap == 0x1E || gCurrentMap == 0x22){
-	SpellTablePointersBrian[FIRE][0].attackCount = 4;
+	SpellTablePointers[FIRE][0].attackCount = 4;
     }
 	//Fire Bomb
 	//Power Staff
