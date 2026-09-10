@@ -2880,7 +2880,7 @@ void mainCFunction(void) { //ran every frame
 		}
 //
 
-//Enemy Spell Adjust per Region
+/*Enemy Spell Adjust per Region
 	if (gCurrentMap == 0x02 || gCurrentMap == 0x1F){
 		gFireball = 0x00010000;
 		gWindcutter = 0x00020003;
@@ -2900,7 +2900,7 @@ void mainCFunction(void) { //ran every frame
 		gFireball = 0x00030000;
 		gWindcutter = 0x00060003;
 	}
-//
+*/
 	
 //Auto Revive
 	if (gSpellCast == 0x0000030C){
